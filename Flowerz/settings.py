@@ -11,9 +11,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Base url to serve media files
+MEDIA_URL = '/media/'
+
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+# Base URL for Models and assets 
+MODEL_ASSETS_ROOT = os.path.join(BASE_DIR,'predict/','magi/','assets/')
+MODEL_CONFIG_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_config.json')
+MODEL_WEIGHTS_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_weights.h5')
+MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_name_dict.pickle")
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,6 +44,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'predict',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +68,7 @@ ROOT_URLCONF = 'Flowerz.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,6 +130,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'predict','static','predict'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
