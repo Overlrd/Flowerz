@@ -10,8 +10,11 @@ html {
     align-items: center;
 }
 body {
-    display: block;
 }
-main {
 
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

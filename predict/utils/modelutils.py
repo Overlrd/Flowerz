@@ -10,7 +10,6 @@ import tensorflow_hub as hub
 
 from Flowerz.settings import  MODEL_LABELS_PATH
 
-
 class MlModel():
     def __init__(self, config_path , weights_path ,custom_objects):
         """Build the Prediction model with provided config and set the provided weights """

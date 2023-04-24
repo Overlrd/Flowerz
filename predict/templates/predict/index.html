@@ -5,27 +5,35 @@
 {% block content %}
 
 <div id="main_container">
-  <div id="div_form">
-    <form id="predict_form" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Upload</button>
-    </form>
-  <div>
-  
-  {% if img_obj %}
-  <div id="div_result">
-    {% for img in img_obj %}
-    <div class="container"> 
-      <h3>Succesfully uploaded : {{ result }}</h3>
-      <img src="{{ img.image.url}}" alt="connect" style="max-height:300px">
-    </div> 
-    {% endfor %}
-  <div>
-  {% endif %}
-  
-  {% if predictions %}
-    <p>{{predictions}}</p>
-  {% endif %}
+  <article id="form_article">
+      <div id="div_form">
+        <form id="predict_form"method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit">Upload</button>
+        </form>
+      </div>
+  </article>
+
+<article id="div_result">
+  <header id="sub_result">
+    <div id="div_result_images">
+    </div>
+    <div id="div_result_prediction">
+    </div>
+  </header>
+  <a  id="predict_progress" href="#" aria-busy="true">Generating link, please wait…</a>
+  <div id="div_result_title"></div>
+  <div id="div_result_infos">
+    
+  </div>
+  <footer >
+    <div id="div_result_description">
+    </div>
+  </footer>
+
+</article>
 </div>
+
+
 {% endblock content %}
