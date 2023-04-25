@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     divResult.style.display = "none" ;
 
     function getFlowerData(flowerName) {
-        const url = `/predict/flower/${flowerName}`;
+        const url = `/predict/flower/${flowerName}/${0}`;
         return fetch(url)
           .then(response => response.json())
           .then(data => {
@@ -29,8 +29,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
     function getWikiData(flowerName){
-        const url = `/flower/${flowerName}?wiki_only=true`;
-        return fetch(url)
+        const url = `/predict/flower/${flowerName}/${1}`;
+        return fetch(url, {
+
+        })
          .then(response => response.json())
          .then(data => {
             return data
@@ -91,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function CreateDescription(class_infos){
-        div_result_description.innerHTML = class_infos.wiki_description
+        div_result_description.innerHTML = class_infos.summary
 
     }
     
@@ -116,11 +118,16 @@ document.addEventListener('DOMContentLoaded', () => {
             CreateResultImage(first_class_infos)
             CreateResultPercentDivs(predictions_infos)
             CreateResultTable(first_class_infos)
-            CreateDescription(first_class_infos)  
             predictionDivs = document.querySelectorAll('.prediction_div');
             console.log(predictionDivs)
             ListenForPredictionClassesClick(predictionDivs)
+            div_result_description.setAttribute('aria-busy','true')
+            getWikiData(first_class_infos['scientific_name'])
+            .then(wiki_data => {
+                CreateDescription(wiki_data)  
+                div_result_description.setAttribute('aria-busy','false')
 
+            })
         })
 
 
@@ -142,6 +149,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem("current_class", class_data['name']);
                 CreateResultImage(class_data)
                 CreateResultTable(class_data)
+                console.log("calling wiki description")
+                div_result_description.innerHTML = ''
+                div_result_description.setAttribute('aria-busy','true')
+                getWikiData(class_data['scientific_name'])
+                .then(wiki_data => {
+                    console.log(wiki_data)
+                    CreateDescription(wiki_data)  
+                    div_result_description.setAttribute('aria-busy','false')
+    
+                    
+                })
               })
             });
           });

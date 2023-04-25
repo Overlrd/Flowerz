@@ -32,6 +32,7 @@ def get_flower_object(request ,name , wiki_only = None):
         classinfos = MyTreffleClient.search_item(q=name, to_retrieve=infos)
         classinfos['name'] = name
         response_data = json.dumps(classinfos)
+        print("returning treffle data")
         return HttpResponse(response_data, content_type='application/json')
     elif wiki_only :
         wiki_infos = {}
@@ -39,6 +40,7 @@ def get_flower_object(request ,name , wiki_only = None):
         wiki_infos['summary'] = wiki[0]
         wiki_infos['link'] = wiki[1]
         response_data = json.dumps(wiki_infos)
+        print("returning wiki data")
         return HttpResponse(response_data, content_type='application/json')
 
 # index view

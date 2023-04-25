@@ -4,9 +4,8 @@
 *.pyc
 __pycache__/
 local_settings.py
-db.sqlite3
 media/
-
+apicache-py3/
 # virtual environment
 .venv/
 
@@ -15,3 +14,10 @@ media/
 .env
 *.pyc
 .vscode/
+trash*
+*.ctrl
+
+# Database
+*.db
+*.sqlite3
+db.sqlite3
