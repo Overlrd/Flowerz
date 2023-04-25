@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', () => {
     predictProgress.style.display = "none";
     divResult.style.display = "none" ;
 
+
+    history.pushState({'view': 'form' ,'flower':'','data':''}, '', '')
+
+
     function getFlowerData(flowerName) {
         const url = `/predict/flower/${flowerName}/${0}`;
         return fetch(url)
@@ -77,8 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function CreateResultTable(class_infos){
         // Info Title 
-        const  prediction_title = localStorage.getItem("current_class");
-        div_result_title.innerHTML = `<h1> ${prediction_title} </h1>`;        
+        div_result_title.innerHTML = `<h1> ${class_infos.name} </h1>`;        
         // Infos Table
         const name = `<tr><th scope='row'>Name</th><td> ${class_infos.name}</td></tr>`
         const scientific_name = `<tr><th scope='row'>Scientific Name</th><td> ${class_infos.scientific_name}</td></tr>`
@@ -94,6 +97,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function CreateDescription(class_infos){
         div_result_description.innerHTML = class_infos.summary
+
+    }
+
+
+    window.onpopstate = function(event){
+        console.log('popstate action ')
+        console.log('loading back ', event.state.flower)
+        FormArticle.style.display = "none";
+        predictForm.style.display = "none";
+        divResult.style.display = "flex";
+        infos = event.state.data
+        console.log(infos)
+        if (event.state.view == 'prediction'){
+        // create image and prediction percent divs 
+        CreateResultImage(infos)
+        CreateResultTable(infos)
+        predictionDivs = document.querySelectorAll('.prediction_div');
+        console.log(predictionDivs)
+        ListenForPredictionClassesClick(predictionDivs)
+        div_result_description.innerHTML = ''
+        div_result_description.setAttribute('aria-busy','true')
+        getWikiData(infos['scientific_name'])
+        .then(wiki_data => {
+            CreateDescription(wiki_data)  
+            div_result_description.setAttribute('aria-busy','false')
+
+        })
+        }
+        else{
+            console.log("should pop to form ")
+            divResult.style.display = "none";
+            FormArticle.style.display = "flex";
+            predictForm.style.display = "flex";
+        }
 
     }
     
@@ -114,6 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(request_data)
             const first_class_infos = JSON.parse(request_data['first_class_infos'])
             const predictions_infos = request_data['prediction']
+
+            history.pushState({'view': 'prediction' ,'flower':first_class_infos['name'],'data':first_class_infos}, '', '')
+            
             // create image and prediction percent divs 
             CreateResultImage(first_class_infos)
             CreateResultPercentDivs(predictions_infos)
@@ -129,14 +169,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             })
         })
-
-
-    
         predictProgress.style.display = "none";
         divResultImages.style.display = `${divResultImagesStyle}`;
         FormArticle.style.display = "none" ;
-
-
     });
 
     function ListenForPredictionClassesClick(prediction_divs){
@@ -144,14 +179,27 @@ document.addEventListener('DOMContentLoaded', () => {
             predictionDiv.addEventListener('click', function(event) {
               const flower_name = event.target.querySelector(':first-child').textContent;
               console.log(flower_name);
+              InfosTable.innerHTML = ''
+              InfosTable.setAttribute('aria-busy','true')
+
+              divResultImages.innerHTML = ''
+              divResultImages.setAttribute('aria-busy','true')
+
               getFlowerData(flower_name)
               .then(class_data => {
                 localStorage.setItem("current_class", class_data['name']);
+                divResultImages.removeAttribute('aria-busy','false')
                 CreateResultImage(class_data)
+                InfosTable.removeAttribute('aria-busy','false')
                 CreateResultTable(class_data)
                 console.log("calling wiki description")
+
+                history.pushState({'view': 'prediction','flower':class_data['name'],'data':class_data}, '', '')
+
+
                 div_result_description.innerHTML = ''
                 div_result_description.setAttribute('aria-busy','true')
+                
                 getWikiData(class_data['scientific_name'])
                 .then(wiki_data => {
                     console.log(wiki_data)

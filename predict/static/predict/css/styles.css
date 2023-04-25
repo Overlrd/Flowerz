@@ -17,10 +17,12 @@
 }
 
 #div_result_images {
-    display: block;
+    display: flex;
     width: 50%;
     height: 50%;
     margin: 1rem;
+    align-items: center;
+    justify-content: center;
 }
 
 #div_result_images img {
