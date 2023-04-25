@@ -10,7 +10,9 @@
 }
 
 #div_result {
-    display: flex; justify-content: space-around;
+    display: flex;
+    position: relative; 
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     width: 100%;
@@ -58,4 +60,15 @@
     justify-content: space-between;
     display: flex;
     width: 100%;
+}
+
+#close-icon-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+}
+
+#close-icon-container :hover{
+    cursor: pointer;
 }

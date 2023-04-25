@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const predictProgress = document.getElementById("predict_progress");
     const predictForm = document.getElementById("predict_form");
     const divResultImages = document.getElementById("div_result_images");
     const div_result_description = document.getElementById("div_result_description") ;
@@ -8,12 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const FormArticle = document.getElementById("form_article")
     const div_result_infos = document.getElementById("div_result_infos")
     const div_result_title = document.getElementById("div_result_title")
+    const close_result_icon = document.getElementById("close-icon")
     let predictionDivs ;
     
     const InfosTable = document.createElement("table")
     InfosTable.setAttribute("data-theme","dark")
     const InfosTableBody = document.createElement("tbody")
-    predictProgress.style.display = "none";
     divResult.style.display = "none" ;
 
 
@@ -100,6 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
+    function set_display(elements , display){
+        elements.forEach(element => {
+            element.style.display = display
+        })
+    }
+
 
     window.onpopstate = function(event){
         console.log('popstate action ')
@@ -127,9 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         else{
             console.log("should pop to form ")
-            divResult.style.display = "none";
-            FormArticle.style.display = "flex";
-            predictForm.style.display = "flex";
+            set_display([divResult ,],'none')
+            set_display([FormArticle, predictForm], 'flex')
         }
 
     }
@@ -138,10 +142,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const formData = new FormData(this);
 
-        predictForm.style.display = "none";
-        divResult.style.display = "flex" ;
-        predictProgress.style.display = "block";
-        divResultImages.style.display = "none";
+        set_display([predictForm,divResultImages], 'none')
+        set_display([divResult, ], 'flex')
         let divResultImagesStyle = ''
 
 
@@ -149,6 +151,8 @@ document.addEventListener('DOMContentLoaded', () => {
         makePrediction(formData)
         .then(request_data => {
             console.log(request_data)
+            divResult.removeAttribute('aria-busy','false')
+
             const first_class_infos = JSON.parse(request_data['first_class_infos'])
             const predictions_infos = request_data['prediction']
 
@@ -167,11 +171,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 CreateDescription(wiki_data)  
                 div_result_description.setAttribute('aria-busy','false')
 
-            })
+            }) 
         })
-        predictProgress.style.display = "none";
         divResultImages.style.display = `${divResultImagesStyle}`;
         FormArticle.style.display = "none" ;
+
+        close_result_icon.addEventListener('click', function(){
+            predictForm.reset()
+            divResultImages.innerHTML = ''
+            div_result_prediction.innerHTML = ''
+            div_result_infos.innerHTML = ''
+            div_result_title.innerHTML = ''
+            div_result_description.innerHTML = ''
+            
+            divResult.style.display = "none";
+            FormArticle.style.display = "flex";
+            predictForm.style.display = "flex";        })
     });
 
     function ListenForPredictionClassesClick(prediction_divs){
