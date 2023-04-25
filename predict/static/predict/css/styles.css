@@ -72,3 +72,14 @@
 #close-icon-container :hover{
     cursor: pointer;
 }
+
+#div_result_title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#div_result_title div{
+    margin: 5px;
+} 

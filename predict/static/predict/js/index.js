@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const div_result_infos = document.getElementById("div_result_infos")
     const div_result_title = document.getElementById("div_result_title")
     const close_result_icon = document.getElementById("close-icon")
+    const ResultLoading = document.getElementById("result_loading")
+
     let predictionDivs ;
     
     const InfosTable = document.createElement("table")
@@ -68,19 +70,31 @@ document.addEventListener('DOMContentLoaded', () => {
     function CreateResultPercentDivs(predictions_infos){
         let prediction_html = "";
         let first_class_name;
+        let hue = 120; 
+    
         for (const [class_name, prediction_value] of Object.entries(predictions_infos)) {
             if (!first_class_name) {
                 first_class_name = class_name;
                 localStorage.setItem("current_class", first_class_name);
             }
-            prediction_html += `<div role="button" tabindex="0" class='prediction_div'> <div >${class_name}</div>  <div>${parseFloat(prediction_value).toFixed(3)}</div> </div>`;
+    
+            let prediction_percent = parseFloat(prediction_value);
+            prediction_percent = (prediction_percent * 100).toFixed(2) + '%';
+    
+            prediction_html += `<div role="button" tabindex="0" class='prediction_div' style='background-color: hsl(${hue}, 60%, 70%); color: #000;'> <div style='color: black;'>${class_name}</div>  <div style='color: black;'>${prediction_percent}</div> </div>`;
+            
+            // reduce the hue by 20 for each subsequent div
+            hue = (hue - 20) % 360;
         }
+    
         div_result_prediction.innerHTML = prediction_html;
     }
+    
+    
 
     function CreateResultTable(class_infos){
         // Info Title 
-        div_result_title.innerHTML = `<h1> ${class_infos.name} </h1>`;        
+        div_result_title.innerHTML = `<div><h1> ${class_infos.name} </h1></div>`;        
         // Infos Table
         const name = `<tr><th scope='row'>Name</th><td> ${class_infos.name}</td></tr>`
         const scientific_name = `<tr><th scope='row'>Scientific Name</th><td> ${class_infos.scientific_name}</td></tr>`
@@ -95,9 +109,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function CreateDescription(class_infos){
-        div_result_description.innerHTML = class_infos.summary
+        let summary = class_infos.summary;
+        
+        if (summary.includes("== Description ==")) {
+            const description = summary.split("== Description ==")[1].trim();
+            summary = summary.split("== Description ==")[0].trim();
+    
+            div_result_description.innerHTML = summary;
+            div_result_description.innerHTML += `<br><br><strong>Description:</strong> ${description}`;
+        } else {
+            div_result_description.innerHTML = summary;
+        }
+
+        div_result_title.innerHTML += `<div> <a href="${class_infos.link}">Wikipedia</a> </div>`
 
     }
+    
 
     function set_display(elements , display){
         elements.forEach(element => {
@@ -144,14 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         set_display([predictForm,divResultImages], 'none')
         set_display([divResult, ], 'flex')
-        let divResultImagesStyle = ''
-
+        ResultLoading.style.display = 'block'
 
         // get predicted data
         makePrediction(formData)
         .then(request_data => {
             console.log(request_data)
-            divResult.removeAttribute('aria-busy','false')
 
             const first_class_infos = JSON.parse(request_data['first_class_infos'])
             const predictions_infos = request_data['prediction']
@@ -165,16 +190,17 @@ document.addEventListener('DOMContentLoaded', () => {
             predictionDivs = document.querySelectorAll('.prediction_div');
             console.log(predictionDivs)
             ListenForPredictionClassesClick(predictionDivs)
+
             div_result_description.setAttribute('aria-busy','true')
             getWikiData(first_class_infos['scientific_name'])
             .then(wiki_data => {
                 CreateDescription(wiki_data)  
-                div_result_description.setAttribute('aria-busy','false')
-
+                div_result_description.removeAttribute('aria-busy')
             }) 
         })
-        divResultImages.style.display = `${divResultImagesStyle}`;
         FormArticle.style.display = "none" ;
+        ResultLoading.style.display = 'none'
+        divResultImages.style.display = `block`;
 
         close_result_icon.addEventListener('click', function(){
             predictForm.reset()
@@ -183,10 +209,11 @@ document.addEventListener('DOMContentLoaded', () => {
             div_result_infos.innerHTML = ''
             div_result_title.innerHTML = ''
             div_result_description.innerHTML = ''
-            
+
             divResult.style.display = "none";
-            FormArticle.style.display = "flex";
-            predictForm.style.display = "flex";        })
+            set_display([FormArticle, predictForm], 'flex');
+    
+        })
     });
 
     function ListenForPredictionClassesClick(prediction_divs){
@@ -219,9 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(wiki_data => {
                     console.log(wiki_data)
                     CreateDescription(wiki_data)  
-                    div_result_description.setAttribute('aria-busy','false')
-    
-                    
+                    div_result_description.setAttribute('aria-busy','false')                    
                 })
               })
             });

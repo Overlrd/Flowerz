@@ -50,7 +50,7 @@ class TreffeClient:
         self.flower_dict = {i : data[i] for i in to_retrieve}
         print("returning after treffle search ", time() - t)
         return self.flower_dict
-    def search_info_wikipedia(self, title_=None, length=5):
+    def search_info_wikipedia(self, title_=None, length=10):
         if not title_:
             title = self.flower_dict['scientific_name']
         else:
