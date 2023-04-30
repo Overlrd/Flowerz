@@ -53,17 +53,15 @@ def index(request):
         img_obj = [Image.objects.create(image=img) for img in images]
         img_paths = [os.path.join(MEDIA_ROOT, img.image.name) for img in img_obj]
         values , classes = Model_Instance.predict_batch(img_paths)
-
+        
         prediction_dict = dict(zip(classes,values))
         [prediction_dict.update({i:str(prediction_dict[i])}) for i in prediction_dict.keys()]
-
         data = {
             "img_urls" : [f"{MEDIA_URL}{img.image.name}" for img in img_obj],
             "prediction" : prediction_dict ,
             "first_class_infos" : get_flower_object(request ,name = classes[0]).content.decode('utf-8')
         }
         response_data = json.dumps(data)
-
         return HttpResponse(response_data, content_type="application/json")
             
     else:

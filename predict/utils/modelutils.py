@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from PIL import Image
 import pickle
 
@@ -8,7 +9,7 @@ from tensorflow import keras
 from keras.models import model_from_json
 import tensorflow_hub as hub
 
-from Flowerz.settings import  MODEL_LABELS_PATH
+from Flowerz.settings import  MODEL_LABELS_PATH , MODEL_CONFIG_PATH
 
 class MlModel():
     def __init__(self, config_path , weights_path ,custom_objects):

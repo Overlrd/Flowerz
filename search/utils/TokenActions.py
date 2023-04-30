@@ -8,6 +8,6 @@ def get_token():
     payload = {'token':TOKEN, 'origin':'http://127.0.0.1'}
     r = requests.post(route, params= payload)
     r = r.json()
-    print(r)
+    return r['token']
 
 get_token()
