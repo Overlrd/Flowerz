@@ -16,14 +16,15 @@ from time import time
 from decimal import Decimal as D
 
 from .models import Image
-from .utils.modelutils import MlModel
-from .utils.searchutils import TreffeClient , Flower , TOKEN , API , infos 
+from .utils.modelutils import (get_model , get_labels , custom_predict ,
+                                process_image , post_process , labels ,
+                                  custom_objects)
+from .utils.searchutils import TreffeClient , TOKEN , API , infos 
 from Flowerz.settings import MODEL_CONFIG_PATH , MODEL_WEIGHTS_PATH , MEDIA_ROOT , MEDIA_URL
 from .forms import ImageForm
 
 # instanciate the model
-custom_objects={'KerasLayer': hub.KerasLayer}
-Model_Instance = MlModel(MODEL_CONFIG_PATH, MODEL_WEIGHTS_PATH, custom_objects)
+model = get_model(MODEL_CONFIG_PATH, MODEL_WEIGHTS_PATH, custom_objects)
 
 MyTreffleClient = TreffeClient(token=TOKEN , api_url=API , limit=1)
 
@@ -52,14 +53,14 @@ def index(request):
         img_obj = []
         img_obj = [Image.objects.create(image=img) for img in images]
         img_paths = [os.path.join(MEDIA_ROOT, img.image.name) for img in img_obj]
-        values , classes = Model_Instance.predict_batch(img_paths)
-        
-        prediction_dict = dict(zip(classes,values))
-        [prediction_dict.update({i:str(prediction_dict[i])}) for i in prediction_dict.keys()]
+        # process and predict
+        image_data = process_image(img_paths=img_paths, img_res=224)
+        prediction_dict = custom_predict(model, image_data, labels,3)
+
         data = {
             "img_urls" : [f"{MEDIA_URL}{img.image.name}" for img in img_obj],
             "prediction" : prediction_dict ,
-            "first_class_infos" : get_flower_object(request ,name = classes[0]).content.decode('utf-8')
+            "first_class_infos" : get_flower_object(request ,name = list(prediction_dict.keys())[0]).content.decode('utf-8')
         }
         response_data = json.dumps(data)
         return HttpResponse(response_data, content_type="application/json")

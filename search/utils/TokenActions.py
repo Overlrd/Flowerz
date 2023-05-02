@@ -9,5 +9,3 @@ def get_token():
     r = requests.post(route, params= payload)
     r = r.json()
     return r['token']
-
-get_token()
