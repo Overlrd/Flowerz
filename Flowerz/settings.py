@@ -21,6 +21,9 @@ MEDIA_URL = '/media/'
 
 # Path where media is stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+# Test images Root
+
+TEST_IMAGES_ROOT = os.path.join(BASE_DIR, "predict/" , "magi/", "assets/", "test_images/")
 
 # Base URL for Models and assets 
 MODEL_ASSETS_ROOT = os.path.join(BASE_DIR,'predict/','magi/','assets/')
