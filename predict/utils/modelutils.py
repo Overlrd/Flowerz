@@ -51,7 +51,7 @@ def process_image(img_paths, img_res=224):
         img = Image.open(img_path)
         array_img = tf.keras.utils.img_to_array(img)
         squeezed_img = tf.squeeze(array_img)
-        resized_img = tf.image.resize(squeezed_img, (img_res, img_res)) * 255.0
+        resized_img = tf.image.resize(squeezed_img, (img_res, img_res))/255.0
         processed.append(resized_img)
     if len(img_paths) == 1:
         out_img = np.expand_dims(processed[0], axis=0)
@@ -82,6 +82,9 @@ def custom_predict(model, data, labels, top_k=3):
     """Wraps the model.predict() method , apply post_process \n Input model , data , top_k , \n
     Return post_process"""
     prediction = model.predict(data)
+    print('-'*50)
+    print(len(model.trainable_weights))
+    print(prediction)
     return post_process(prediction, labels, top_k=top_k)
 
 
