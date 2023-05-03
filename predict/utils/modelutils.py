@@ -13,7 +13,6 @@ import tensorflow_hub as hub
 
 from Flowerz.settings import  MODEL_LABELS_PATH , MODEL_CONFIG_PATH , MODEL_WEIGHTS_PATH
 
-
 def get_labels(labels_path):
     if Path(labels_path).is_file():
         with open(labels_path,"rb") as file :
@@ -66,15 +65,11 @@ def post_process(prediction, labels, top_k=3):
     top_values , top_indices = tf.math.top_k(prediction, top_k)
     top_indices = tf.squeeze(top_indices)
     top_values = tf.squeeze(top_values)
-    print("-"*40)
-    print(top_indices, type(top_indices))
     top_classes = [labels[int(key)] for key in list(top_indices.numpy())]
 
     #assert len(top_values) == len(top_classes)
     prediction_dict = dict(zip(top_classes,top_values.numpy()))
     [prediction_dict.update({i:str(prediction_dict[i])}) for i in prediction_dict.keys()]
-    print("-"*40)
-    print(prediction_dict)
     return prediction_dict
 
 
@@ -82,9 +77,6 @@ def custom_predict(model, data, labels, top_k=3):
     """Wraps the model.predict() method , apply post_process \n Input model , data , top_k , \n
     Return post_process"""
     prediction = model.predict(data)
-    print('-'*50)
-    print(len(model.trainable_weights))
-    print(prediction)
     return post_process(prediction, labels, top_k=top_k)
 
 
