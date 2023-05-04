@@ -3,8 +3,8 @@ import wikipediaapi
 import requests
 import json
 from time import time
-
-TOKEN = "fb7c8Funa_gZnYU5onH0Oj79uapv-vvUMZ9tDqU0JTo"
+from Flowerz.settings import TREFFLE_API_KEY
+TOKEN = TREFFLE_API_KEY
 API = "https://trefle.io/api/v1/plants/search"
 infos = ['id','common_name','scientific_name','year','bibliography', 'author','family_common_name','image_url' , 'synonyms','genus','family']
 
