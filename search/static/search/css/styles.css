@@ -1,0 +1,20 @@
+#main-frame {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  #frame1 {
+    flex: 0 0 30%;
+    margin: 2rem;
+  }
+  
+  #frame2 {
+    flex: 1 0;
+    margin: 2rem;
+  }
+  
+  #search-result-grid {
+    grid-template-columns: repeat(3, 6fr);
+    row-gap: 2px;
+  }

@@ -2,10 +2,36 @@
 {% load static  %}
 
 {% block title %}Predict{% endblock title %}
-{% block content %}
-    <input type="hidden" data-token="{{ client_token }}" name="client_token">
-    <div class="container">
-    </div>
-    {{ hi }}
 
+{% block style %} 
+<link rel="stylesheet" href="{% static 'search/css/styles.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <input id="token-input" type="hidden" data-token="{{ client_token }}" name="client_token">
+    <div class="container" id="main-frame">
+        <div class="container" id="frame1">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium vitae beatae veritatis iusto, laboriosam necessitatibus eligendi itaque error. Quisquam, libero nesciunt dicta iste consectetur cum! Voluptate expedita voluptatum voluptatibus a.</p>
+        </div>
+        <div class="container" id="frame2">
+            <div class="container">
+                <input 
+                id="search-input"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+                />
+            </div>
+            <div class="container">
+                <div id="search-result-grid" class="grid">
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content%}
+
+{% block script %}
+    <script type="module" src="{% static 'search/js/index.js'%}"></script>
+    <script type="module" src="{% static 'search/js/Treffle_Wrapper.js'%}"></script>
+{% endblock script %}
+

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,8 +10,7 @@
     <link type="text/css" rel="stylesheet" href="{% static 'css/pico.css' %}"  media="screen,projection"/>             
       <!--project base css -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
-      <!--predict app css-->
-    <link rel="stylesheet" href="{% static 'predict/css/styles.css' %}">
+    {% block style %}{% endblock style %}
 
 </head>
 <body> 
@@ -30,7 +29,9 @@
         {% block content %}{% endblock content %}
     </main>
 
-    <script type="text/javascript" src="{% static 'predict/js/index.js'%}"></script>
+    {% block script %} 
+    {% endblock script %}
+
 
 </body>
 </html>
