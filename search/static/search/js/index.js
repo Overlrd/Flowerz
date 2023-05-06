@@ -72,60 +72,57 @@ class Query {
         }
   }
   
-  class TreffleAPIWrapper {
-    #token 
-    #base_url
-    constructor(token) {
-            
-        this.#base_url = "https://trefle.io/api/v1";
-        this.#token = token;
-    }
-  
-    async make_request(url, params) {
+class TreffleAPIWrapper {
+#token 
+#base_url
+constructor(token) {
+        
+    this.#base_url = "https://trefle.io/api/v1";
+    this.#token = token;
+}
 
-        const headers = { Authorization: `Bearer ${this.#token}` };
-        try {
-
-            console.log(`headers : ${JSON.stringify(headers)}`);
-            const queryParams = new URLSearchParams(params);
-            const urlWithQuery = `${url}?${queryParams}`;
-            const r = await fetch(urlWithQuery, { method: "GET", headers });
-                        const data = await r.json();
-            if (r.status === 200) {
-                return data;
-            } else {
-                throw new Error(
-                `Request failed with status code ${r.status}. Response content: ${JSON.stringify(data)}`
-                );
-            }
-        } catch (e) {
-            console.log(e);
-            return {};
-        }
+async make_request(url, params) {
+    const headers = { Authorization: `Bearer ${this.#token}` };
+    try {
+      const queryParams = new URLSearchParams(params);
+      const urlWithQuery = `${url}?${queryParams}`;
+      console.log(urlWithQuery)
+      const response = await fetch(urlWithQuery, { method: "GET", headers });
+      const data = await response.json();
+      if (response.ok) {
+        return data;
+      } else {
+        throw new Error(`Request failed with status code ${response.status}. Response content: ${JSON.stringify(data)}`);
       }
-      
-  }
-  
-  class SearchSpecies extends Query {
-    constructor(query, page = 1, limit = 5, ...kwargs) {
-        const route = "/species/search";
-        super(route, query, page, limit, ...kwargs);
+    } catch (error) {
+      console.log(error);
+      return {};
     }
   }
   
-  class SearchPlants extends Query {
-    constructor(query, page = 1, limit = 3, ...kwargs) {          
-        const route = "/plants/search";
-        super(route, query, page, limit, ...kwargs);
-    }
-  }
+    
+}
   
-  class GetItem extends Query {
-    constructor(query = null, page = 1, limit = 10, ...kwargs) {
-        const route = "/plants";
-        super(route, query, page, limit, ...kwargs);
-    }
-  }
+class SearchSpecies extends Query {
+constructor(query, page = 1, limit = 5, ...kwargs) {
+    const route = "/species/search";
+    super(route, query, page, limit, ...kwargs);
+}
+}
+
+class SearchPlants extends Query {
+constructor(query, page = 1, limit = 3, ...kwargs) {          
+    const route = "/plants/search";
+    super(route, query, page, limit, ...kwargs);
+}
+}
+
+class GetItem extends Query {
+constructor(query = null, page = 1, limit = 10, ...kwargs) {
+    const route = "/plants";
+    super(route, query, page, limit, ...kwargs);
+}
+}
 document.addEventListener("DOMContentLoaded", () => {
   // Get client side token
   const token = document.getElementById("token-input").dataset["token"];
@@ -134,19 +131,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const ResultGrid = document.getElementById("search-result-grid");
   const SearchInput = document.getElementById("search-input");
 
-  SearchInput.addEventListener("keyup", () => {
+  SearchInput.addEventListener("submit", (event) => {
+    event.preventDefault();
     const content = SearchInput.value;
+    console.log("submitted here")
     console.log(content);
 
     // Build and send a GetItem request with the search input content as query
     const api = new TreffleAPIWrapper(token);
-    const req = new GetItem(content, 1, 3)
-      .filter_({ genus: "Passiflora" })
-      .order_by({ year: "desc" })
-      .filter_not({ year: "null" })
-      .build();
-
+    const req = new GetItem(content, 1, 3).build();
     console.log(req);
+    alert(req)
 
     api.make_request(req[0], req[1]).then((result) => {
       console.log(result);
