@@ -127,8 +127,12 @@ class Query {
     }
   }
   
-  //const api = new TreffleAPIWrapper("fb7c8Funa_gZnYU5onH0Oj79uapv-vvUMZ9tDqU0JTo");
-  //const req = new GetItem("Passion Flower").filter_({ genus: "Passiflora"}).order_by({year : "desc"}).filter_not({year : "null"}).build()
-  //console.log(req)
-  //api.make_request(req[0], req[1]).then(result => console.log(result));
-  export { TreffleAPIWrapper , Query , GetItem , SearchPlants, SearchSpecies}
+document.addEventListener('DOMContentLoaded', ()=>{
+    console.log('Runnning treffle APi ')
+    const api = new TreffleAPIWrapper("fb7c8Funa_gZnYU5onH0Oj79uapv-vvUMZ9tDqU0JTo");
+    const req = new GetItem("Passion Flower").filter_({ genus: "Passiflora"}).order_by({year : "desc"}).filter_not({year : "null"}).build()
+    console.log(req)
+    api.make_request(req[0], req[1]).then(result => console.log(result));
+})
+
+  //export { TreffleAPIWrapper , Query , GetItem , SearchPlants, SearchSpecies}
