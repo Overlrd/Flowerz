@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +11,7 @@
       <!--project base css -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
       <!--predict app css-->
-    <link rel="stylesheet" href="{% static 'predict/css/styles.css' %}">
+    {% block style %}{% endblock style %}
 
 </head>
 <body> 

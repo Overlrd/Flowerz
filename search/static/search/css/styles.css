@@ -1,0 +1,56 @@
+#search-m-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  #search-l-container {
+    background: rgb(59, 51, 51);
+    width: 30%;
+  }
+  
+  #search-r-container {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+#search-r-input{
+    width: 100%;
+    margin: 2rem;
+}
+
+.grid{
+    width: 100%;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
+}
+
+.flower-img{
+    width: 200px;
+    height: 200px;
+}
+
+.card {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-header,
+.card-body,
+.card-footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.card-header {
+}
+
+.card-footer {
+}

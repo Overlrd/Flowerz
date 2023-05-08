@@ -1,6 +1,6 @@
 from unittest.mock import patch, MagicMock
 from django.test import TestCase
-from Flowerz.utils.treffle_wrapper.treffle import TreffleAPIWrapper, Query
+from Flowerz.utils.TreffleWrapper import TreffleAPIWrapper, Query
 from Flowerz.settings import TREFFLE_API_KEY
 
 
