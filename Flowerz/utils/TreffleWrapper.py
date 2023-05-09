@@ -47,6 +47,7 @@ class TreffleAPIWrapper:
     def make_request(self, query):
         """Make a get request to the Treffle API using the provided Query object"""
         url, params = query._build()
+        print(params)
         headers = {"Authorization": f"Bearer {self.__token}"}
         try:
             r = requests.get(url=url, params=params, headers=headers)
@@ -78,7 +79,8 @@ class TreffleAPIWrapper:
 
 if __name__ == "__main__":
     api = TreffleAPIWrapper("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4MzUsIm9yaWdpbiI6Imh0dHA6Ly8xMjcuMC4wLjEiLCJpcCI6bnVsbCwiZXhwaXJlIjoiMjAyMy0wNS0wOSAxNDozMDoyNSArMDAwMCIsImV4cCI6MTY4MzY0MjYyNX0.o-FJI28PW9VKWWFIrw9qp5CnOTP9eatQqtPcDAhb9gI")
-    req = api.SearchSpeciesQuery(query="Passion Flower").filter_(scientific_name = "Passiflora mixta")
+    #req = api.SearchSpeciesQuery(query="Passion Flower",limit=3)
+    req = api.GetItemQuery(query=None,limit=5)
     print(req)
     result = api.make_request(req)
-    print(result)
+    print(len(result['data']))

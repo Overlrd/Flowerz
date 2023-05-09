@@ -29,8 +29,7 @@
     <main>
         {% block content %}{% endblock content %}
     </main>
-
-    <script type="text/javascript" src="{% static 'predict/js/index.js'%}"></script>
-
+    {% block script %}
+    {% endblock script %}
 </body>
 </html>

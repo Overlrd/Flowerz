@@ -20,3 +20,4 @@ def get_client_jwt(request, TOKEN ):
     request.session['token'] = token
     request.session['token_expiration'] = expiration_str
     return token
+
