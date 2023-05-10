@@ -13,11 +13,21 @@ import tensorflow_hub as hub
 
 from Flowerz.settings import  MODEL_LABELS_PATH , MODEL_CONFIG_PATH , MODEL_WEIGHTS_PATH
 
-def get_labels(labels_path):
-    if Path(labels_path).is_file():
-        with open(labels_path,"rb") as file :
-            labels = pickle.load(file)
-    return labels
+
+def get_labels(filename):
+    """Loads labels from label_names.json file \n
+    return a dictionnary(key = class_id, values= [default_name, better_name])
+    - `default_name` is the default name of the class in the original dataset
+    - `better_name` is the most refered name of the class on wikipedia (often scientific name)
+    """
+    assert Path(filename).is_file()
+    labels_dict = {}
+    
+    with open(filename, "r") as file:
+        data = json.load(file)
+    for idx , i in enumerate(data) :
+        labels_dict[idx] = list(i.values())
+    return labels_dict
 
 labels = get_labels(MODEL_LABELS_PATH)
 custom_objects={'KerasLayer': hub.KerasLayer}
@@ -57,19 +67,24 @@ def process_image(img_paths, img_res=224):
         return out_img
     return tf.stack(processed)
 
+
+
 def post_process(prediction, labels, top_k=3):
-    """Process model predictions \n Input : prediction(array) , top_k \n returns top_k predicted
+    """Process model predictions\nInput: prediction (array), labels, top_k\nReturns top_k predicted
     values and related classes"""
     if len(prediction.shape) > 1 and prediction.shape[0] > 1:
         prediction = tf.math.reduce_mean(prediction, axis=0)
-    top_values , top_indices = tf.math.top_k(prediction, top_k)
+    top_values, top_indices = tf.math.top_k(prediction, top_k)
     top_indices = tf.squeeze(top_indices)
     top_values = tf.squeeze(top_values)
-    top_classes = [labels[int(key)] for key in list(top_indices.numpy())]
+    #top_classes = [labels[int(key)] for key in top_indices.numpy()]
 
-    #assert len(top_values) == len(top_classes)
-    prediction_dict = dict(zip(top_classes,top_values.numpy()))
-    [prediction_dict.update({i:str(prediction_dict[i])}) for i in prediction_dict.keys()]
+    prediction_dict = {}
+    for idx, value in zip(top_indices.numpy(), top_values):
+        class_name = '-'.join(labels[idx])
+        prediction_dict[class_name] = value.numpy()
+
+    prediction_dict = {key: str(value) for key, value in prediction_dict.items()}
     return prediction_dict
 
 
@@ -81,3 +96,16 @@ def custom_predict(model, data, labels, top_k=3):
 
 
 
+""" 
+def post_process(prediction, labels, top_k=3):
+    if len(prediction.shape) > 1 and prediction.shape[0] > 1:
+        prediction = tf.math.reduce_mean(prediction, axis=0)
+    top_values , top_indices = tf.math.top_k(prediction, top_k)
+    top_indices = tf.squeeze(top_indices)
+    top_values = tf.squeeze(top_values)
+    top_classes = [labels[int(key)] for key in list(top_indices.numpy())]
+
+    prediction_dict = dict(zip(top_classes,top_values.numpy()))
+    [prediction_dict.update({i:str(prediction_dict[i])}) for i in prediction_dict.keys()]
+    return prediction_dict
+ """

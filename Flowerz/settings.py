@@ -27,7 +27,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MODEL_ASSETS_ROOT = os.path.join(BASE_DIR,'predict/','magi/','assets/')
 MODEL_CONFIG_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_config.json')
 MODEL_WEIGHTS_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_weights.h5')
-MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_name_dict.pickle")
+MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_names.json")
 
 # Load environnement variables 
 load_dotenv()

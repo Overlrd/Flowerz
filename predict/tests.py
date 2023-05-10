@@ -6,7 +6,7 @@ import tensorflow as tf
 import tensorflow_hub as hub
 
 from Flowerz.settings import MODEL_WEIGHTS_PATH, MODEL_CONFIG_PATH , MODEL_LABELS_PATH , MEDIA_ROOT
-from .utils.modelutils import get_model , get_labels , process_image , post_process , custom_predict
+from .utils.model_utils import get_model , get_labels , process_image , post_process , custom_predict
 
 IMAGE_ROOT = os.path.join(MEDIA_ROOT,"images")
 def get_random_images(image_media_root, num_images=1):

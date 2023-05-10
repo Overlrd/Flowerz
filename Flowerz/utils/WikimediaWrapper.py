@@ -1,7 +1,18 @@
 import json
-
+from html.parser import HTMLParser
 from django.core.cache import cache
 import requests
+
+class CustomHTMLParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.text = ""
+    def handle_data(self, data: str):
+        self.text += data
+    def reset_parser(self):
+        self.text = ""
+
+CustomParser = CustomHTMLParser()
 
 class WikimediaAPIWrapper:
     """Wraps a bunch of methods to perform requests to the wikimedia api
@@ -41,7 +52,7 @@ class WikimediaAPIWrapper:
                 cache.add("wikimedia_refresh_token",refresh_token)
         return access_token , refresh_token
     
-    def _extract_from_search_result(self, search_result, to_extract: list, language_code):
+    def _extract_from_search_result(self, search_result, to_extract: list, language_code="en"):
         """
         """
         data = json.loads(search_result.text)
@@ -49,13 +60,16 @@ class WikimediaAPIWrapper:
         extracted_data = {}
         for page in data['pages']:
             for key in to_extract:
-                if key in page:
-                    extracted_data[key] = page.get(key , f"{key}")
                 if key == "thumbnail_url":
                     extracted_data["thumbnail_url"] = 'https:' + page['thumbnail']['url']
-                if key == "article_url":
+                elif key == "article_url":
                     extracted_data["article_url"] = 'https://' + language_code + '.wikipedia.org/wiki/' + page['key']
-
+                elif key == "excerpt":
+                    parser = CustomHTMLParser()
+                    parser.feed(page['excerpt'])
+                    extracted_data['excerpt'] = parser.text
+                else :
+                    extracted_data[key] = page.get(key, None)
         return extracted_data
 
     def search_wikipedia(self, search_query , to_extract , language_code = 'en', number_of_results = 1 ):
@@ -63,9 +77,10 @@ class WikimediaAPIWrapper:
         return `number_of_results` item in the specified `language_code` \n
         `to_extract` a list of keys to extract from the article , values :\n
         - title (article's title)
-        - description (article's decription)
+        - description (article's short description)
         - article_url (article's url)
         - thumbnail_url (article's thumbnail if exists)
+        - excerpt (articles's long description)
 	    """
         endpoint = '/search/page'
         url = self.__base_url + language_code + endpoint

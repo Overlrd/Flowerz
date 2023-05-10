@@ -1,5 +1,10 @@
 import os
 import requests
+import wikipedia
+import wikipediaapi 
+
+TREFFLE_DATA_FIELDS = ['id','common_name','scientific_name','year','bibliography', 'author','family_common_name','image_url' , 'synonyms','genus','family']
+
 class Query:
     def __init__(self, route, query, page=1, limit=3, **kwargs):
         self.filters = {}
@@ -76,6 +81,23 @@ class TreffleAPIWrapper:
         def __init__(self, query=None, page=1, limit=10, **kwargs):
             route = "/plants"
             super().__init__(route=route, query=query, page=page, limit=limit,kwargs=kwargs)
+
+    @staticmethod
+    def extract_data(data, to_extract):
+        extracted = []
+        for flower in data:
+            extracted_flower = {}
+            for key in to_extract:
+                if key in flower:
+                    extracted_flower[key] = flower[key]
+            extracted.append(extracted_flower)
+        return extracted
+    @staticmethod
+    def search_wikipedia(query, lenght=10):
+        wiki_api = wikipediaapi.Wikipedia(language='en')
+        page = wiki_api.page()
+
+
 
 if __name__ == "__main__":
     api = TreffleAPIWrapper("eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4MzUsIm9yaWdpbiI6Imh0dHA6Ly8xMjcuMC4wLjEiLCJpcCI6bnVsbCwiZXhwaXJlIjoiMjAyMy0wNS0wOSAxNDozMDoyNSArMDAwMCIsImV4cCI6MTY4MzY0MjYyNX0.o-FJI28PW9VKWWFIrw9qp5CnOTP9eatQqtPcDAhb9gI")
