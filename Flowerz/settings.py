@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os 
+import os
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,12 +24,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 # Base URL for Models and assets 
-MODEL_ASSETS_ROOT = os.path.join(BASE_DIR,'predict/','magi/','assets/')
+MODEL_ASSETS_ROOT = os.path.join(BASE_DIR, 'predict/', 'magi/', 'assets/')
 MODEL_CONFIG_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_config.json')
 MODEL_WEIGHTS_PATH = os.path.join(MODEL_ASSETS_ROOT, 'model_weights.h5')
 MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_names.json")
 
-# Load environnement variables 
+# Load environment variables
 load_dotenv()
 TREFFLE_API_KEY = os.getenv("TREFFLE_API_KEY")
 WIKIMEDIA_CLIENT_ID = os.getenv("WIKIMEDIA_CLIENT_ID")
@@ -142,7 +142,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'predict','static','predict'))
+    os.path.join(BASE_DIR, 'predict', 'static', 'predict'))
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

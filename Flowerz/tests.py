@@ -4,8 +4,8 @@ from django.test import TestCase
 import requests
 from unittest.mock import patch, MagicMock 
 
-from Flowerz.utils.TreffleWrapper import TreffleAPIWrapper, Query
-from Flowerz.utils.WikimediaWrapper import WikimediaAPIWrapper
+from Flowerz.utils.treffle_wrapper import TreffleAPIWrapper, Query
+from Flowerz.utils.wikipedia_utils import WikimediaAPIWrapper
 from Flowerz.settings import TREFFLE_API_KEY , WIKIMEDIA_CLIENT_ID , WIKIMEDIA_CLIENT_SECRET
 
 class TreffleAPIWrapperTestCase(TestCase):

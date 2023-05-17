@@ -1,7 +1,8 @@
 from datetime import datetime
 import requests
 
-def get_client_jwt(request, TOKEN ):
+
+def get_client_jwt(request, TOKEN):
     expiration_time_str = request.session.get('token_expiration')
     current_time = datetime.now()
 
@@ -20,4 +21,3 @@ def get_client_jwt(request, TOKEN ):
     request.session['token'] = token
     request.session['token_expiration'] = expiration_str
     return token
-
