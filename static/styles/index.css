@@ -1,0 +1,16 @@
+#main_container{
+    display: flex;
+}
+#left_container {
+    width: 30%;
+}
+#right_container{
+    width: 60%;
+}
+#predict_form {
+    display: flex;
+    text-align: end;
+}
+#predict_form div label{
+    display: none;
+}

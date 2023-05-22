@@ -1,5 +1,9 @@
 from django.shortcuts import render
+from predict.forms import ImageForm
 
 
 def index(request):
-    return render(request, 'index.html')
+    form = ImageForm()
+    return render(request, 'index.html', {
+        'form': form
+    })

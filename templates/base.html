@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-theme='dark'>
   <head>
@@ -5,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Flowerz{% endblock title %}</title>
       <!--Import pico.css-->
-    <link type="text/css" rel="stylesheet" href="{% static 'css/pico.css' %}"  media="screen,projection"/>             
+    <link type="text/css" rel="stylesheet" href="{% static 'styles/pico.css' %}"  media="screen,projection"/>             
       <!--project base css -->
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}">
       <!--predict app css-->
     {% block style %}{% endblock style %}
 
@@ -23,7 +24,6 @@
         <li><button class="secondary">Products</button></li>
       </ul>
     </nav>
-    
     <main>
         {% block content %}{% endblock content %}
     </main>

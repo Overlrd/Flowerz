@@ -55,7 +55,7 @@ def index(request):
         return HttpResponse(response_data, content_type="application/json")
     else:
         form = ImageForm()
-        return render(request, 'predict/index.html', {'form': form})
+        return render(request, 'index.html', {'form': form})
 
 
 async def get_flower(request, name, to_return):

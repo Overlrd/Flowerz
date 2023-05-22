@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
-{% block content %}
-<input id="hidn_data" type="hidden" name="dummy_data" data-data="{{ dummy_data }}">
-<div class="container" id="root"></div>
-{% endblock %}
+{% load static  %}
+
+{% block title %}Predict{% endblock title %}
+
+{% block style %}   
+ <link rel="stylesheet" href="{% static '/styles/index.css' %}">
+{% endblock style %}
+
+{% block content %} 
+
+<div id="main_container" class="container">
+    <div id="left_container">
+    </div>
+
+    <div id="right_container">
+        <form id="predict_form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+              {{ form.as_div }}
+              <button type="submit">Upload</button>
+          </form>
+          <button id="testbtn"> Click me ! </button>
+    </div>
+
+    {% include './partials/modal.html' %}
+</div>
+
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src="{% static '/scripts/predict.js'%}"></script>
+{% endblock script %}
