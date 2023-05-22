@@ -9,10 +9,13 @@
     <link type="text/css" rel="stylesheet" href="{% static 'styles/pico.css' %}"  media="screen,projection"/>             
       <!--project base css -->
     <link rel="stylesheet" href="{% static 'styles/base.css' %}">
-      <!--predict app css-->
+      <!--app css-->
     {% block style %}{% endblock style %}
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-</head>
+  </head>
 <body> 
     <nav>
       <ul>
