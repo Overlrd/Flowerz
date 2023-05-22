@@ -14,21 +14,16 @@
     {% block style %}{% endblock style %}
 
 </head>
-<body> 
-    <nav>
-      <ul>
-        <li><strong>Acme Corp</strong></li>
-      </ul>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><button class="secondary">Products</button></li>
-      </ul>
-    </nav>
-    
-    <main>
+<body>
+    <main id="app">
         {% block content %}{% endblock content %}
     </main>
+    
+    <!--React Script-->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <!-- Babel Script -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     {% block script %}
     {% endblock script %}
 </body>
