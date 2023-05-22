@@ -8,10 +8,19 @@
 {% endblock style %}
 
 {% block content %} 
-<div id="root">
 
+<div id="main_container">
+        <form id="predict_form" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit">Upload</button>
+        </form>
 </div>
 {% endblock content %}
 
 {% block script %}
+<<<<<<< HEAD
+=======
+<script type="text/javascript" src="{% static 'predict/js/index.js'%}"></script>
+>>>>>>> parent of dd063a5 (refactoring templates)
 {% endblock script %}
