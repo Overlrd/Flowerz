@@ -1,0 +1,19 @@
+.mc-article{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    padding: 0!important;
+    margin-top: 2rem;
+}
+
+.mc-article input {
+    width: 30%;
+    min-width: 30%;
+}
+.mc-article div {
+    width: 30%;
+    margin-top: 0px!important;
+}

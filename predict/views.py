@@ -36,10 +36,13 @@ def generate_response_data(**kwargs):
 # index view
 def index(request):
     """Process images uploaded by users"""
+    print("Handling new request")
+    print("Request post  :", request.POST)
+    print("Request files  :", request.FILES)
     form = ImageForm(request.POST, request.FILES) if request.method == "POST" else ImageForm()
     if form.is_valid():
         img_paths, img_obj = process_image_form(request)
-
+        print("form is valid")
         # build, process and predict
 
         image_data = process_image(img_paths=img_paths, img_res=224)
@@ -54,6 +57,7 @@ def index(request):
         print(response_data)
         return HttpResponse(response_data, content_type="application/json")
     else:
+        print('form is not valid ')
         form = ImageForm()
         return render(request, 'index.html', {'form': form})
 

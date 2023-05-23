@@ -1,0 +1,25 @@
+.fc-article{
+    margin: auto;
+    width: 50%;
+}
+.fc-article header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.fc-header-img-ctn{
+    width: 50%;
+    max-height: 18rem;
+    margin: auto;
+}
+#fc-header-img{
+    max-height: 18rem;
+}
+.fc-header-tb-ctn {
+    width: 50%;
+    max-height: initial;
+    margin: auto;
+}
+.fc-f-title{
+    align-self: flex-end;
+}
