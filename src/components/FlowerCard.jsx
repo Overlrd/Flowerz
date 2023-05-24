@@ -1,54 +1,89 @@
-import * as React from 'react';
-import { Grid } from '@mui/material';
-const FlowerCard = ({ img_url, table_data, flower_name, wiki_description }) => {
-    return (
-      <article className='fc-article'>
-        <header>
-          <div className='fc-header-img-ctn'>
-            <img id='fc-header-img' src={img_url || "https://cataas.com/cat/says/hello%20world!"}/>
-          </div>
-          <div className='fc-header-tb-ctn'>
-          <table>
-            <thead>
-              <tr>
-                <th colSpan="2">Planet</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">Mercury</th>
-                <td>4,880</td>
-              </tr>
-              <tr>
-                <th scope="row">Venus</th>
-                <td>12,104</td>
-              </tr>
-              <tr>
-                <th scope="row">Venus</th>
-                <td>12,104</td>
-              </tr>
-              <tr>
-                <th scope="row">Venus</th>
-                <td>12,104</td>
-              </tr>
-            </tbody>
-          </table>
-          </div>
-        </header>
-  
-        <div className='fc-f-title'><h3>{flower_name || 'Passiflora Mixta'}</h3></div>
-  
-        <main className='fc-main'>
-          <p>{wiki_description || 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dicta nihil amet distinctio ab voluptates, ipsum numquam necessitatibus! Iste sint exercitationem aliquam. Error maiores quod perspiciatis magnam labore temporibus id nobis.'}</p>
-          <img id='fc-main-img' src="https://cataas.com/cat/says/hello%20world!"/>
-        </main>
-  
-        <footer>
-          <p>From wikipedia</p>
-        </footer>
-      </article>
-    );
+import React from 'react'
+
+const FlowerCard = () => {
+  const [isExpanded, setExpanded] = React.useState(false);
+  const [flowerIsClicked, setflowerisClicked] = React.useState(false);
+  const switchText = () => {
+    setExpanded(!isExpanded);
+  };
+  const handleImageClick = () => {
+    setflowerisClicked(true)
   }
-  
+ 
+  return (
+    <>
+    <article>
+      <header>
+        <div>
+        <table>
+          <thead>
+            <tr>
+              <th colSpan="2" scope="col">Planet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Kingdom</th>
+              <td>Plantae</td>
+            </tr>
+            <tr>
+              <th scope="row">Clade</th>
+              <td>1Tulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Clade</th>
+              <td>TulipaTulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Clade</th>
+              <td>Tulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Family</th>
+              <td>Tulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Subfamily</th>
+              <td>TulipaTulipaTulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Tribe</th>
+              <td>TulipaTulipa</td>
+            </tr>
+            <tr>
+              <th scope="row">Genus</th>
+              <td>Tulipa</td>
+            </tr>
+
+          </tbody>
+        </table>
+        </div>
+        <div>
+          <img onClick={handleImageClick} id='header-flower-img' src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg"/>
+          <p>Dahlia <span>(Scientific name)</span> </p>
+        </div>
+      </header>
+
+      <details className='right-text'>
+        <summary onClick={switchText} role="link">{isExpanded ? 'Less' : 'More'}</summary>
+          <div className='description-div'>
+              <div className='img-small'>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg"/>
+              </div>
+              <div className='description-text-div'>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, assumenda sequi! Cum numquam eius explicabo cupiditate nihil odit possimus assumenda minima modi, mollitia tempore ullam, perspiciatis consequatur voluptas iure exercitationem.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo molestiae voluptatum delectus hic, similique enim esse nisi quasi architecto? Non sit optio quibusdam. Dolores quasi eaque voluptate doloribus repellendus nesciunt?</p>
+              </div>
+          </div>
+          <div className='footer'>
+              <p>Image and description from <a href="">wikipedia</a></p>
+          </div>
+      </details>
+
+    </article>
+    </>
+
+  )
+}
 
 export default FlowerCard

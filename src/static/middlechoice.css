@@ -1,19 +1,21 @@
 .mc-article{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
-    width: 80%;
+    width: max-content;
     padding: 0!important;
-    margin-top: 2rem;
-}
+    margin-top: 1rem;
+} 
 
 .mc-article input {
-    width: 30%;
+    width: auto;
     min-width: 30%;
+    margin: 0 1rem 0 1rem;
+
 }
-.mc-article div {
-    width: 30%;
-    margin-top: 0px!important;
+.mc-article button {
+    width: auto;
+    margin: 0 1rem 0 1rem;
 }
