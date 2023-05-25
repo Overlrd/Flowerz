@@ -29,3 +29,16 @@
 nav{
     margin: 0 1rem 1rem 1rem;
 }
+
+@media (max-width: 840px ) {
+    .flowerz-nav-title{
+        font-size: 3rem;
+    }
+    .flowerz-nav-text {
+        align-self: flex-end;
+        float: left;
+    }
+    .flowerz-nav-icon {
+    font-size: 1rem;
+    }
+}

@@ -19,3 +19,19 @@
     width: auto;
     margin: 0 1rem 0 1rem;
 }
+
+
+@media (max-width: 840px ) {
+    .mc-article {
+        display: flex;
+        flex-direction: column;
+    }
+    .mc-article button {
+        margin: 1rem 0 1rem 0;
+    }
+    .mc-article input {
+        margin: 1rem 0 0 0;
+    
+    }
+    
+}

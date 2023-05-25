@@ -1,7 +1,17 @@
+from dataclasses import dataclass
+
 import requests
 
-TREFFLE_DATA_FIELDS = ['id', 'common_name', 'scientific_name', 'year', 'bibliography', 'author', 'family_common_name',
-                       'image_url', 'synonyms', 'genus', 'family']
+TREFLE_DATA_FIELDS = ['id', 'common_name', 'scientific_name', 'year', 'bibliography', 'author',
+                      'family_common_name',
+                      'image_url', 'synonyms', 'genus', 'family']
+
+
+@dataclass
+class TrefleRoutes:
+    base_route = "https://trefle.io/api/v1"
+    search_plant_route = "{}/plants/search".format(base_route)
+    search_species_route = "{}/species/search".format(base_route)
 
 
 class Query:
@@ -41,15 +51,15 @@ class Query:
         return self.url, params
 
 
-class TreffleAPIWrapper:
-    """Wraps the Treffle api , contains subclasses of query object for each query"""
+class TrefleAPIWrapper:
+    """Wraps the Trefle api , contains subclasses of query object for each query"""
 
     def __init__(self, token):
         self.base_url = "https://trefle.io/api/v1"
         self.__token = token
 
-    def make_request(self, query):
-        """Make a get request to the Treffle API using the provided Query object"""
+    def make_request(self, query: Query):
+        """Make a get request to the Trefle API using the provided Query object"""
         url, params = query._build()
         print(params)
         headers = {"Authorization": f"Bearer {self.__token}"}
@@ -61,7 +71,7 @@ class TreffleAPIWrapper:
             if r.status_code == 200:
                 return r.json()
             else:
-                raise Exception(f"Request failed with status code {r.status_code}. Response content: {r.content}")
+                raise Exception(f"Request failed {r.status_code}:{r.content}")
 
     class SearchSpeciesQuery(Query):
         """Retrieve data from '/species/search' route , return Query object"""
@@ -94,12 +104,3 @@ class TreffleAPIWrapper:
                     extracted_flower[key] = flower[key]
             extracted.append(extracted_flower)
         return extracted
-
-
-if __name__ == "__main__":
-    api = TreffleAPIWrapper("")
-    # req = api.SearchSpeciesQuery(query="Passion Flower",limit=3)
-    req = api.GetItemQuery(query=None, limit=5)
-    print(req)
-    result = api.make_request(req)
-    print(len(result['data']))

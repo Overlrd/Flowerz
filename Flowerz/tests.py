@@ -4,14 +4,14 @@ from django.test import TestCase
 import requests
 from unittest.mock import patch, MagicMock 
 
-from Flowerz.utils.treffle_wrapper import TreffleAPIWrapper, Query
+from Flowerz.utils.treffle_wrapper import TrefleAPIWrapper, Query
 from Flowerz.utils.wikipedia_utils import WikimediaAPIWrapper
 from Flowerz.settings import TREFFLE_API_KEY , WIKIMEDIA_CLIENT_ID , WIKIMEDIA_CLIENT_SECRET
 
 class TreffleAPIWrapperTestCase(TestCase):
     def setUp(self):
         self.token = TREFFLE_API_KEY
-        self.API = TreffleAPIWrapper(self.token)
+        self.API = TrefleAPIWrapper(self.token)
 
     @patch('Flowerz.utils.TreffleWrapper.TreffleAPIWrapper.make_request')
     def test_search_species(self, mock_make_request):

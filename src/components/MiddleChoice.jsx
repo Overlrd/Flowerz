@@ -8,4 +8,4 @@ const MiddleChoice = ({onclick}) => {
   )
 }
 
-export default MiddleChoice
+export default MiddleChoice 

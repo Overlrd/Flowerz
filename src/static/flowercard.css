@@ -2,10 +2,15 @@ article {
     width: 70%;
     margin: auto;
     margin-top: 1rem;
+    font-family: 'Roboto', sans-serif;
 }
 header {
     display: flex;
     justify-content: space-between;
+}
+#header-flower-title span {
+    font-style: italic;
+    text-decoration: underline;
 }
 header > div {
     display: flex;
@@ -22,28 +27,29 @@ details summary {
 }
 
 .description-div {
-    text-align: left;
-    margin-top: 2rem;
     display: flex;
     flex-direction: row;
+    text-align: left;
 
 }
 .img-small {
-    margin: 1rem 1rem 1rem 0;
+    margin: 2rem 1rem 1rem 0;
     display: block;
-    width: 30rem;
-    clear: left;
-    float: left;
+    width: 30%;
+    height: 30%;
   }
   
 
 .footer {
-    text-align: left;
+    text-align: right;
+    font-size: small;
+    font-style: oblique;
 
 }
 .description-text-div {
     margin-top: 2rem;
     color: aquamarine;
+    width: 70%;
 }
 
 #header-flower-img:hover {
@@ -53,7 +59,7 @@ details summary {
 }
 
 
-@media (max-width: 840px ) {
+@media (max-width: 740px ) {
     article {
         width: 100%;
     }
@@ -63,5 +69,19 @@ details summary {
     header > div {
         width: 100%;
     }
-    
+    .description-div {
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+    }
+    .img-small {
+        width: 100%;
+        margin: 2rem 0 0 3rem;
+        display: flex;
+    }
+    .description-text-div{
+        width: 100%;
+        margin: 1rem 0 0 3rem;
+
+    }
 }
