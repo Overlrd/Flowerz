@@ -13,11 +13,11 @@ import { Navigation } from "swiper";
 const SwappingImages = () => {
   return (
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
-        <SwiperSlide><FlowerCard/></SwiperSlide>
-        <SwiperSlide><FlowerCard/></SwiperSlide>
-        <SwiperSlide><FlowerCard/></SwiperSlide>
-        <SwiperSlide><FlowerCard/></SwiperSlide>
-        <SwiperSlide><FlowerCard/></SwiperSlide>
+        <SwiperSlide><FlowerCard /></SwiperSlide>
+        <SwiperSlide><FlowerCard /></SwiperSlide>
+        <SwiperSlide><FlowerCard /></SwiperSlide>
+        <SwiperSlide><FlowerCard /></SwiperSlide>
+        <SwiperSlide><FlowerCard /></SwiperSlide>
       </Swiper>
 
   )

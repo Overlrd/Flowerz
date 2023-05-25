@@ -48,7 +48,7 @@ def index(request):
         image_data = process_image(img_paths=img_paths, img_res=224)
         prediction_dict = custom_predict(ModelInstance, image_data, labels, 3)
 
-        first_class_name = list(prediction_dict.keys())[0].split('-')[-1]
+        first_class_name = list(prediction_dict.keys())[0]  # .split('-')[-1]
 
         response_data = generate_response_data(img_urls=[
             f"{MEDIA_URL}{img.image.name}"for img in img_obj],

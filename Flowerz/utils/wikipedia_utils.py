@@ -120,10 +120,9 @@ async def get_infobox_data(page_title):
             html = await response.text()
 
     soup = BeautifulSoup(html, 'html.parser')
-    # Infobox table with class 'infobox biota'
     infobox = soup.find('table', class_='infobox biota')
 
-    info_dict = {}
+    info_list = []
     if infobox:
         start_extract = False
         rows = infobox.find_all('tr')
@@ -131,16 +130,16 @@ async def get_infobox_data(page_title):
             if start_extract:
                 cells = row.find_all(['th', 'td'])
                 if len(cells) >= 2:
-                    key = cells[0].get_text().strip()
+                    label = cells[0].get_text().strip()
                     value = cells[1].get_text().strip()
-                    info_dict[key] = value
+                    info_list.append({'label': label, 'value': value})
             elif 'Scientific classification' in row.get_text():
                 start_extract = True
-            # Check for styled row indicating end of extraction
             if row.has_attr('style'):
                 break
 
-    return info_dict
+    return info_list
+
 
 
 async def get_page_text(title, split):
@@ -164,7 +163,7 @@ async def get_page_text(title, split):
         splited = page_extract.split(split)[0].strip()
         return splited
     return page_extract
-
+ 
 
 async def get_page_image(page_title, thumb_size):
     base_url = 'https://en.wikipedia.org/w/api.php'

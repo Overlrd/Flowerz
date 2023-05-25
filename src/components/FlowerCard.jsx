@@ -1,29 +1,16 @@
 import React from 'react'
-
+import ImageModal from './ImageModal.jsx';
 const FlowerCard = ({
   image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg",
   small_image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg",
   wiki_description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, assumenda sequi! Cum numquam eius explicabo cupiditate nihil odit possimus assumenda minima modi, mollitia tempore ullam, perspiciatis consequatur voluptas iure exercitationem.\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Nemo molestiae voluptatum delectus hic, similique enim esse nisi quasi architecto? Non sit optio quibusdam. Dolores quasi eaque voluptate doloribus repellendus nesciunt?",
-  tabular_data = [
-    { label: "Kingdom", value: "Plantae" },
-    { label: "Clade", value: "1Tulipa" },
-    { label: "Clade", value: "TulipaTulipa" },
-    { label: "Clade", value: "Tulipa" }, 
-    { label: "Family", value: "Tulipa" },
-    { label: "Subfamily", value: "TulipaTulipaTulipa" },
-    { label: "Tribe", value: "TulipaTulipa" },
-    { label: "Genus", value: "Tulipa" }
-  ]
+  tabular_data,
+  flower_name = "common name-scientific name",
 }) => {
   const [isExpanded, setExpanded] = React.useState(false);
-  const [flowerIsClicked, setFlowerIsClicked] = React.useState(false);
 
   const switchText = () => {
     setExpanded(!isExpanded);
-  };
-
-  const handleImageClick = () => {
-    setFlowerIsClicked(true);
   };
 
   return (
@@ -31,12 +18,8 @@ const FlowerCard = ({
       <article>
         <header>
           <div>
+          {tabular_data && tabular_data.length ? (
             <table>
-              <thead>
-                <tr>
-                  <th colSpan="2" scope="col">Planet</th>
-                </tr>
-              </thead>
               <tbody>
                 {tabular_data.map((data, index) => (
                   <tr key={index}>
@@ -46,10 +29,17 @@ const FlowerCard = ({
                 ))}
               </tbody>
             </table>
+          ) : (
+            <a href="#" aria-busy="true" >Loading data, please wait...</a>
+          )}
+
+
           </div>
           <div>
-            <img onClick={handleImageClick} id='header-flower-img' src={image_url} />
-            <div id='header-flower-title' >Dahlia <span>(Scientific name)</span> </div>
+              <img id='header-flower-img' src={image_url} />
+              <div id='header-flower-title'>
+                {flower_name.split('-')[0]} <span>({flower_name.split('-')[1]})</span>
+            </div>
           </div>
         </header>
 
@@ -60,9 +50,7 @@ const FlowerCard = ({
               <img src={small_image_url} />
             </div>
             <div className='description-text-div'>
-              {wiki_description.split("\n\n").map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+              {wiki_description}
             </div>
           </div>
           <div className='footer'>

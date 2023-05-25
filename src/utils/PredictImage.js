@@ -13,7 +13,7 @@ export function predictImage(formData){
 }
 
 export async function fetch_flower_data(flower_name, to_return){
-    return fetch(`flower/${flower_name}/${to_return}`)
+    return fetch(`/predict/flower/${flower_name}/${to_return}`)
     .then(response => response.json())
     .then(data => {
       return data

@@ -1,17 +1,24 @@
 import React from 'react'
-import FlowerCard from './FlowerCard.jsx'
+import FlowerCard from './FlowerCard.jsx';
+import close_icon from '../static/close.png'
 
-const ModalFlowerCard = ({visible, img_url, table_data, flower_name, wiki_description }) => {
+const ModalFlowerCard = ({ visible, onSpanClose, flowerData }) => {
+  const { first_class_name, img_urls, additionalData } = flowerData;
+  const { infobox_data, page_text, page_image } = additionalData?.data || {};
+
   return (
     <dialog open={visible}>
-        <FlowerCard 
-        img_url={img_url} 
-        table_data={table_data}
-        flower_name={flower_name}
-        wiki_description={wiki_description}
-         />
+      <FlowerCard 
+        image_url={img_urls[0]} 
+        tabular_data={infobox_data || []}
+        flower_name={first_class_name}
+        wiki_description={page_text || ''}
+        small_image_url={page_image || ''}
+      />
+    <span onClick={onSpanClose} className='close'><img src={close_icon} alt="X"/></span>
     </dialog>
-  )
-}
+  );
+};
+
 
 export default ModalFlowerCard

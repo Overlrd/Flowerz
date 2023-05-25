@@ -1,8 +1,12 @@
 import React from 'react'
+import'../static/imagemodal.css'
 
-const ImageModal = () => {
+const ImageModal = ({open=false, img_url, caption="Plantae"}) => {
   return (
-    <div>ImageModal</div>
+    <dialog open={open}>
+            <img src={img_url}/>
+            <div id='caption'> {caption} </div>
+    </dialog>
   )
 }
 
