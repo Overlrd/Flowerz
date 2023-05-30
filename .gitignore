@@ -17,7 +17,7 @@ apicache-py3/
 test/
 trash*
 *.ctrl
-
+.idea/
 # Database
 *.db
 *.sqlite3
