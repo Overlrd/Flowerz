@@ -12,7 +12,7 @@ apicache-py3/
 # other
 .DS_Store
 .env 
-
+.env
 *.pyc
 .vscode/
 test/
