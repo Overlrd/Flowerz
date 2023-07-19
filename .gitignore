@@ -11,6 +11,7 @@ apicache-py3/
 .*-env/
 # other
 .DS_Store
+.env 
 
 *.pyc
 .vscode/
