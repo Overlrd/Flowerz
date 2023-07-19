@@ -8,16 +8,17 @@ media/
 apicache-py3/
 # virtual environment
 .venv/
-
+.*-env/
 # other
 .DS_Store
-.env
+
 *.pyc
 .vscode/
 test/
 trash*
 *.ctrl
 .idea/
+.flake8
 # Database
 *.db
 *.sqlite3

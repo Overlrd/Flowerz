@@ -1,11 +1,12 @@
 import React from 'react'
 import ImageModal from './ImageModal.jsx';
+
 const FlowerCard = ({
-  image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg",
-  small_image_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Dahlia.%22Erika_Krause%22.7408.jpg/128px-Dahlia.%22Erika_Krause%22.7408.jpg",
-  wiki_description = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Necessitatibus, assumenda sequi! Cum numquam eius explicabo cupiditate nihil odit possimus assumenda minima modi, mollitia tempore ullam, perspiciatis consequatur voluptas iure exercitationem.\n\nLorem ipsum dolor sit amet consectetur adipisicing elit. Nemo molestiae voluptatum delectus hic, similique enim esse nisi quasi architecto? Non sit optio quibusdam. Dolores quasi eaque voluptate doloribus repellendus nesciunt?",
+  image_url,
+  small_image_url,
+  wiki_description,
   tabular_data,
-  flower_name = "common name-scientific name",
+  flower_name 
 }) => {
   const [isExpanded, setExpanded] = React.useState(false);
 
@@ -36,8 +37,8 @@ const FlowerCard = ({
 
           </div>
           <div>
-              <img id='header-flower-img' src={image_url} />
-              <div id='header-flower-title'>
+              <img id='header-flower-img' className='skeleton' src={image_url} style={{ maxWidth: '500px', maxHeight: '500px' }} />
+              <div id='header-flower-title' className='skeleton skeleton-text'>
                 {flower_name.split('-')[0]} <span>({flower_name.split('-')[1]})</span>
             </div>
           </div>
@@ -46,14 +47,14 @@ const FlowerCard = ({
         <details className='right-text'>
           <summary onClick={switchText} role="link">{isExpanded ? 'Less' : 'More'}</summary>
           <div className='description-div'>
-            <div className='img-small'>
+            <div className='img-small skeleton'>
               <img src={small_image_url} />
             </div>
-            <div className='description-text-div'>
+            <div className='description-text-div  skeleton skeleton-text skeleton-text__body'>
               {wiki_description}
             </div>
           </div>
-          <div className='footer'>
+          <div className='footer skeleton skeleton-text skeleton-footer'>
             <p>Image and description from <a href="">wikipedia</a></p>
           </div>
         </details>

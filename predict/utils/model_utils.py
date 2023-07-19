@@ -9,8 +9,9 @@ from PIL import Image
 from keras.models import model_from_json
 from tensorflow import keras
 
-from Flowerz.settings import MODEL_LABELS_PATH
+from Flowerz.settings import MODEL_LABELS_PATH, MODEL_CONFIG_PATH, MODEL_WEIGHTS_PATH
 
+custom_objects = {'KerasLayer': hub.KerasLayer}
 
 def get_labels(filename):
     """Loads labels from label_names.json file \n
@@ -20,33 +21,12 @@ def get_labels(filename):
     """
     assert Path(filename).is_file()
     labels_dict = {}
-    
+
     with open(filename, "r") as file:
         data = json.load(file)
     for idx, i in enumerate(data):
         labels_dict[idx] = list(i.values())
     return labels_dict
-
-
-labels = get_labels(MODEL_LABELS_PATH)
-custom_objects = {'KerasLayer': hub.KerasLayer}
-
-
-def get_model(model_cfg_path, model_weight_path, custom_object):
-    """Build a keras model loading json config , weights and custom_objects """
-    if Path(model_cfg_path).is_file() and Path(model_weight_path).is_file():
-        try:
-            with open(model_cfg_path) as file:
-                model_cfg = file.read()
-        except Exception as e:
-            print(e)
-            logging.exception(e)
-        else:
-            with keras.utils.custom_object_scope(custom_object):
-                model = model_from_json(model_cfg)
-                model.load_weights(model_weight_path)
-                return model
-
 
 def process_image(img_paths, img_res=224):
     """Process Images for the Model \n Apply : squeeze , resize and expand dim \n
@@ -68,6 +48,22 @@ def process_image(img_paths, img_res=224):
         return out_img
     return tf.stack(processed)
 
+labels = get_labels(MODEL_LABELS_PATH)
+
+def get_model(model_cfg_path, model_weight_path, custom_object):
+    """Build a keras model loading json config , weights and custom_objects """
+    if Path(model_cfg_path).is_file() and Path(model_weight_path).is_file():
+        try:
+            with open(model_cfg_path) as file:
+                model_cfg = file.read()
+        except Exception as e:
+            print(e)
+            logging.exception(e)
+        else:
+            with keras.utils.custom_object_scope(custom_object):
+                model = model_from_json(model_cfg)
+                model.load_weights(model_weight_path)
+                return model
 
 def post_process(prediction, labels_map, top_k=3):
     """Process model predictions\nInput: prediction (array), labels, top_k\nReturns top_k predicted
@@ -85,7 +81,6 @@ def post_process(prediction, labels_map, top_k=3):
 
     prediction_dict = {key: str(value) for key, value in prediction_dict.items()}
     return prediction_dict
-
 
 def custom_predict(model, data, labels_map, top_k=3):
     """Wraps the model.predict() method , apply post_process \n Input model , data , top_k , \n

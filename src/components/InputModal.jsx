@@ -2,7 +2,7 @@ import React from 'react'
 import closeicon from '../static/close.png'
 import { predictImage } from '../utils/PredictImage';
 import ModalFlowerCard from './ModalFlowerCard.jsx';
-
+ 
 const InputModal = ({ visible , onclose, oncancel , handleSubmit}) => { 
     return (
     <dialog open={visible} >

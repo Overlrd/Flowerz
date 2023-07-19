@@ -5,7 +5,6 @@ export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModal
     
     // Retrieve CSRF token from the hidden field
     const csrfToken = document.getElementById('csrf_token').value;
-    console.log(csrfToken);
   
     const formData = new FormData(event.target);
     formData.append('csrfmiddlewaretoken', csrfToken);
@@ -13,6 +12,7 @@ export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModal
     // Find the submit input element
     const submitInputElement = event.target.querySelector('input[type="submit"]');
     
+/*     
     if (submitInputElement) {
         // Create a new link element
         const linkElement = document.createElement('a');
@@ -23,14 +23,17 @@ export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModal
         // Replace the submit input with the link element
         submitInputElement.parentNode.replaceChild(linkElement, submitInputElement);
       }
+ */
 
     predictImage(formData).then(BasicData => {
       // Update the state with the predicted data
+      // Reset the form inputs
+      event.target.reset();
       setFlowerData(BasicData);
       setInputFormVisible(false);
       setModalFlowerVisible(true);
 
-      // fetch additionnal data
+  
       const flowerRequestName = BasicData['first_class_name'].split('-')[1] || BasicData['first_class_name'].split('-')[0];
       fetch_flower_data(flowerRequestName, '*').then(additionalData => {
         // Update the state with the additional data

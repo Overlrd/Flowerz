@@ -32,8 +32,6 @@ const App = () => {
             onSpanClose={()=> {setmodalFlowerVisibible(false)}}
           />
         )}
-
-
     </>
   )
 }
