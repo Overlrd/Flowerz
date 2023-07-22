@@ -8,6 +8,7 @@ header {
     display: flex;
     justify-content: space-between;
 }
+
 #header-flower-title span {
     font-style: italic;
     text-decoration: underline;
@@ -61,10 +62,9 @@ details summary {
     min-height: 400px;
 }
 
-#header-flower-img:hover {
-    transition: 500ms;
-    cursor: pointer;
-    opacity: 0.7;
+#header-flower-img {
+
+
 }
 
 .close {

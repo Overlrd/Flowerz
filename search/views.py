@@ -4,12 +4,12 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from trefleapi import Client
 from Flowerz.settings import TREFFLE_API_KEY
+from Flowerz.utils.wikipedia_utils import WikiInfoExtractor
 
+Extractor = WikiInfoExtractor()
 Tclient = Client(TREFFLE_API_KEY)
 
-def index(request):
+async def index(request):
     if request.method == "GET":
-        response = Tclient.list("species").get_json()
-        print(len(response), len(response["data"]))
-        response = json.dumps(response)
+        response = json.dumps(Tclient.list("species").get_json())
         return HttpResponse(response, content_type="application/json")

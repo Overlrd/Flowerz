@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect, useState } from 'react';
 import ImageModal from './ImageModal.jsx';
 
 const FlowerCard = ({
@@ -9,10 +10,24 @@ const FlowerCard = ({
   flower_name 
 }) => {
   const [isExpanded, setExpanded] = React.useState(false);
-
   const switchText = () => {
     setExpanded(!isExpanded);
   };
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+  useEffect(() => {
+    const headerImg = new Image();
+    headerImg.src = image_url;
+
+    headerImg.onload = () => {
+      setIsImageLoaded(true);
+    };
+  }, [image_url]);
+
+
+  const flowerNameParts = flower_name.split('-');
+  const flowerTitle = flowerNameParts[0];
+  const flowerSubtitle = flowerNameParts[1];
 
   return (
     <>
@@ -37,10 +52,18 @@ const FlowerCard = ({
 
           </div>
           <div>
-              <img id='header-flower-img' className='skeleton' src={image_url} style={{ maxWidth: '500px', maxHeight: '500px' }} />
-              <div id='header-flower-title' className='skeleton skeleton-text'>
-                {flower_name.split('-')[0]} <span>({flower_name.split('-')[1]})</span>
-            </div>
+          
+          <div className='skeleton' style={{ maxWidth: '500px', maxHeight: '500px' , width: '300px', height: '300px'}}>
+            {isImageLoaded && <img id='header-flower-img' src={image_url} alt="Header Flower" />}
+          </div>
+
+          {isImageLoaded && (
+        <div id='header-flower-title' className=''>
+          {flowerTitle}
+          {flowerSubtitle && <span>({flowerSubtitle})</span>}
+        </div>
+      )}
+          
           </div>
         </header>
 
@@ -50,11 +73,11 @@ const FlowerCard = ({
             <div className='img-small skeleton'>
               <img src={small_image_url} />
             </div>
-            <div className='description-text-div  skeleton skeleton-text skeleton-text__body'>
+            <div className='description-text-div'>
               {wiki_description}
             </div>
           </div>
-          <div className='footer skeleton skeleton-text skeleton-footer'>
+          <div className='footer'>
             <p>Image and description from <a href="">wikipedia</a></p>
           </div>
         </details>

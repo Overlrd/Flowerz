@@ -53,6 +53,7 @@ async def get_flower(request, name, to_return):
     """Retrieve information for a flower from wikipedia with the flower name"""
     if request.method == "GET":
         response_data = None
+        name = name.replace("-", "_")
 
         wiki_data = await Extractor.extract(to_extract=to_return, page_title=name)
         response_data = generate_response_data(name=name, data=wiki_data)
