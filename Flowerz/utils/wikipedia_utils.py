@@ -27,7 +27,8 @@ class WikiInfoExtractor:
     @staticmethod
     async def extract_infobox(page_title):
         print("extracting infobox")
-        url = base_url.format(page_title.replace(" ", "_"))
+        url = base_url.format(page_title)
+        print(url, " url ")
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 html = await response.text()
@@ -48,9 +49,8 @@ class WikiInfoExtractor:
                         info_list.append({'label': label, 'value': value})
                 elif 'Scientific classification' in row.get_text():
                     start_extract = True
-                if row.has_attr('style'):
+                if row.has_attr('style') and len(info_list) > 0:
                     break
-
         return info_list
 
     @staticmethod

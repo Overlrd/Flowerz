@@ -30,33 +30,43 @@ const SwappingImages = () => {
     console.log(TrefleData);
   }, [TrefleData]);
 
+    // Function to fetch additional data for a specific item and save it to local storage
+    const fetchAndSaveAdditionalData = (slug) => {
+      fetch_flower_data(slug, "all")
+        .then((data) => {
+          console.log("additional data", data);
+          setAdditionalData(data);
+          // Save the additional data to local storage for future use
+          localStorage.setItem(slug, JSON.stringify(data));
+        })
+        .catch((error) => console.error(error));
+    };
 
-  useEffect(() => {
-    console.log("Current active slide index:", activeSlideIndex);
-    if (TrefleData.length > 0 && activeSlideIndex >= 0 && activeSlideIndex < TrefleData.length) { 
+    useEffect(() => {
+      // Check if the additional data is available in the local storage for the active item
       const activeItem = TrefleData[activeSlideIndex];
-      console.log(activeItem.slug, "active slug ")
-      fetch_flower_data(activeItem.slug, "all")
-      .then((data) => {
-        console.log("additional data", data)
-        setAdditionalData(data);
-      })
-      .catch((error) => console.error(error));
-  }
-  }, [activeSlideIndex, TrefleData]);
-
+      const slug = activeItem?.slug;
+      const storedData = localStorage.getItem(slug);
+      if (storedData) {
+        // If the data is available in local storage, use it directly
+        setAdditionalData(JSON.parse(storedData));
+      } else if (TrefleData.length > 0 && activeSlideIndex >= 0 && activeSlideIndex < TrefleData.length) { 
+        // If the data is not available in local storage, fetch it
+        fetchAndSaveAdditionalData(slug);
+      }
+    }, [activeSlideIndex, TrefleData]);
 
   return (
       <Swiper onSlideChange={(Swiper) => setActiveSlideIndex(Swiper.activeIndex)} navigation={true} modules={[Navigation]} className="mySwiper">
       {TrefleData.map((item, index) => (
         <SwiperSlide key={index}>
-          {console.log(additionalData[index]?.small_image_url, "additional image url")}
+          {console.log(additionalData.data?.page_text ?? "Nothing here !")}
           <FlowerCard
         flower_name={item.common_name + "-" + item.slug}
         image_url={item.image_url}
-        small_image_url={additionalData[index]?.small_image_url} // Pass small_image_url from additionalData
-        wiki_description={additionalData[index]?.wiki_description} // Pass wiki_description from additionalData
-        tabular_data={additionalData[index]?.tabular_data} // Pass tabular_data from additionalData
+        small_image_url={additionalData.data?.page_image}
+        wiki_description={additionalData.data?.page_text || "No description available" } 
+        tabular_data={additionalData.data?.infobox_data}
           />
         </SwiperSlide>
       ))}
