@@ -8,22 +8,6 @@ export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModal
   
     const formData = new FormData(event.target);
     formData.append('csrfmiddlewaretoken', csrfToken);
-  
-    // Find the submit input element
-    const submitInputElement = event.target.querySelector('input[type="submit"]');
-    
-/*     
-    if (submitInputElement) {
-        // Create a new link element
-        const linkElement = document.createElement('a');
-        linkElement.setAttribute('href', '#');
-        linkElement.setAttribute('aria-busy', 'true');
-        linkElement.textContent = 'Please wait…';
-    
-        // Replace the submit input with the link element
-        submitInputElement.parentNode.replaceChild(linkElement, submitInputElement);
-      }
- */
 
     predictImage(formData).then(BasicData => {
       // Update the state with the predicted data

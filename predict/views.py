@@ -49,7 +49,7 @@ def index(request):
 
         ml_log = MLLog(
             images_path=img_paths,
-            predictions=prediction_dict.keys(),
+            predictions=list(prediction_dict.keys()),
             processing_time=t1 - t0,
             prediction_time=t2 - t1
         )

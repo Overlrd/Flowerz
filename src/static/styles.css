@@ -5,6 +5,7 @@
     padding: 0;
     --main-assets-color : #7f0d89;
 }
+@import url('../static/pico.min.css');
 @import url('../static/nav.css');
 @import url('../static/middlechoice.css');
 @import url('../static/swappingimages.css');

@@ -1,0 +1,38 @@
+# Django-specific
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Virtual environment
+.env
+.dev-env/
+
+# Node.js / NPM
+node_modules/
+
+# Local development settings
+*.log
+*.ini
+
+# Visual Studio Code specific files
+.vscode/
+
+# macOS
+.DS_Store
+
+# Compiled Python files
+*.pyc
+
+# Compiled C extensions
+*.so
+
+# Compiled binaries (example: .exe, .dll, .o)
+*.exe
+*.dll
+*.o

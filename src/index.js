@@ -1,10 +1,13 @@
+// index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import '@picocss/pico'
 import './static/styles.css'
-import App from './components/App.jsx';
+
+const App = React.lazy(() => import('./components/App')); // Dynamically import your main App component
 
 ReactDOM.render(
-  <App/>,
-  document.getElementById('app')
+  <React.Suspense fallback={<div>Loading...</div>}>
+    <App />
+  </React.Suspense>,
+  document.getElementById('root')
 );

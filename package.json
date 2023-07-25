@@ -5,18 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch --mode development"
+    "dev": "webpack --watch --mode development",
+    "build": "webpack --mode production"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
-    "@picocss/pico": "^2.0.0-alpha1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "resize-image": "^0.1.0",
     "swiper": "^9.3.2"
   },
   "devDependencies": {
