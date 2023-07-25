@@ -1,5 +1,7 @@
 import React from 'react'
 import githubIcon from '../static/github-mark-white.png'
+import '../static/nav.css'
+
 const Nav = () => {
   return (
     <nav>

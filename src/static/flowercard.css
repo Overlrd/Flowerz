@@ -62,11 +62,6 @@ details summary {
     min-height: 400px;
 }
 
-#header-flower-img {
-
-
-}
-
 .close {
     position: absolute;
     right: 0;
@@ -78,10 +73,16 @@ details summary {
     article {
         width: 100%;
     }
-    header {
+    article > header {
         flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
     }
-    header > div {
+    .header-img-div {
+        align-items: center;
+        justify-content: center;
+    }
+    article header > div {
         width: 100%;
     }
     .description-div {

@@ -1,5 +1,5 @@
-import { predictImage } from "./handle -predict-Image";
-import { fetch_flower_data } from "./handle -predict-Image";
+import { predictImage } from "./handle-predict-Image";
+import { fetch_flower_data } from "./handle-predict-Image";
 export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModalFlowerVisible) => {
     event.preventDefault();
     

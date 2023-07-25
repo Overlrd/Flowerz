@@ -1,4 +1,4 @@
-import { fetch_flower_data } from "./handle -predict-Image";
+import { fetch_flower_data } from "./handle-predict-Image";
 
 export function handleSearchSubmit(event, setSearchResultData, setSearchResultsVisible){
     event.preventDefault()

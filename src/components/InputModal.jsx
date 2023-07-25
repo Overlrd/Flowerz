@@ -1,8 +1,6 @@
 import React from 'react'
 import closeicon from '../static/close.png'
-import { predictImage } from '../utils/handle -predict-Image';
-import ModalFlowerCard from './ModalFlowerCard.jsx';
- 
+import '../static/inputmodal.css'
 const InputModal = ({ visible , onclose, oncancel , handleSubmit}) => { 
     return (
     <dialog open={visible} >

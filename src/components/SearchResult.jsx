@@ -16,7 +16,7 @@ const SearchResult = ({ searchData, onClick, onSpanClose, visible }) => {
     <span onClick={onSpanClose} className='close'><img src={close_icon} alt="X"/></span>
     <article className='container' id='result-grid'>
       {searchData['data'].map((item, index) => (
-        <div onClick={onClick} className='rslt_item' key={index}>
+        <div onClick={onClick} className='grid rslt_item' key={index}>
           {loadedImages.includes(index) ? ( // Display the actual image if it has finished loading
             <img
               className='rslt_art_img'

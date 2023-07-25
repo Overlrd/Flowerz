@@ -1,5 +1,6 @@
 import React from 'react'
-import { on_form_submit } from '../utils/handle-search'
+import '../static/middlechoice.css'
+
 const MiddleChoice = ({onclick, handleSearchSubmit}) => {
   return (
     <article className='mc-article container'>

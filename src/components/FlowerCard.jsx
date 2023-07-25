@@ -1,7 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import ImageModal from './ImageModal.jsx';
-
+import '../static/flowercard.css';
 const FlowerCard = ({
   image_url,
   small_image_url,
@@ -34,37 +33,37 @@ const FlowerCard = ({
       <article>
         <header>
           <div>
-          {tabular_data && tabular_data.length ? (
-            <table>
-              <tbody>
-                {tabular_data.map((data, index) => (
-                  <tr key={index}>
-                    <th scope="row">{data.label}</th>
-                    <td>{data.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <a href="#" aria-busy="true" >Loading data, please wait...</a>
-          )}
+            {tabular_data && tabular_data.length ? (
+              <table>
+                <tbody>
+                  {tabular_data.map((data, index) => (
+                    <tr key={index}>
+                      <th scope="row">{data.label}</th>
+                      <td>{data.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <a href="#" aria-busy="true" >Loading data, please wait...</a>
+            )}
 
 
           </div>
-          <div>
-          
-          <div className='skeleton' style={{ maxWidth: '500px', maxHeight: '500px' , width: '300px', height: '300px'}}>
-            {isImageLoaded && <img id='header-flower-img' src={image_url} alt="Header Flower" />}
+          <div className='header-img-div'>
+            <div className='skeleton' style={{ maxWidth: '500px', maxHeight: '500px' , width: '300px', height: '300px'}}>
+              {isImageLoaded && <img id='header-flower-img' src={image_url} alt="Header Flower" />}
+            </div>
+
+              {isImageLoaded && (
+            <div id='header-flower-title' className=''>
+              {flowerTitle}
+              {flowerSubtitle && <span>({flowerSubtitle})</span>}
+            </div>
+            )}
+            
           </div>
 
-          {isImageLoaded && (
-        <div id='header-flower-title' className=''>
-          {flowerTitle}
-          {flowerSubtitle && <span>({flowerSubtitle})</span>}
-        </div>
-      )}
-          
-          </div>
         </header>
 
         <details className='right-text'>
