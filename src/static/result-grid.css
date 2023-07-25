@@ -1,0 +1,35 @@
+/* result-grid.css */
+#result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    row-gap: 30px;
+    column-gap: 20px;
+}
+
+article {
+    padding: 2rem!important;
+}
+
+.rslt_item {
+    background-color: black;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.rslt_item:hover {
+    background-color: #222;
+}
+
+.rslt_text {
+    margin: 1rem;
+}
+.rslt_text div {
+    margin-bottom: 1rem;
+}
+
+.rslt_art_img {
+    width: 100%; 
+    height: 200px; 
+    display: block;
+    object-fit: cover; 
+}

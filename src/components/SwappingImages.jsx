@@ -2,8 +2,8 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import FlowerCard from './FlowerCard.jsx';
-import { fetch_trefle_flowers } from '../utils/fetch_trefle_flowers.js';
-import { fetch_flower_data } from '../utils/PredictImage.js';
+import { fetch_trefle_flowers } from '../utils/fetch-trefle-data.js';
+import { fetch_flower_data } from '../utils/handle -predict-Image.js';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 

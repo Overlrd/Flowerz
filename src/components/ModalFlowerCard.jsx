@@ -4,8 +4,9 @@ import close_icon from '../static/close.png'
 
 const ModalFlowerCard = ({ visible, onSpanClose, flowerData }) => {
   const { first_class_name, img_urls, additionalData } = flowerData;
-  const { infobox_data, page_text, page_image } = additionalData?.data || {};
-
+  const { data } = additionalData || {};
+  const { infobox_data, page_text, page_image } = data || {};
+  
   return (
     <dialog open={visible}>
       <FlowerCard 

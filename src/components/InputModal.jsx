@@ -1,6 +1,6 @@
 import React from 'react'
 import closeicon from '../static/close.png'
-import { predictImage } from '../utils/PredictImage';
+import { predictImage } from '../utils/handle -predict-Image';
 import ModalFlowerCard from './ModalFlowerCard.jsx';
  
 const InputModal = ({ visible , onclose, oncancel , handleSubmit}) => { 
