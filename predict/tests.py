@@ -12,7 +12,7 @@ from .utils.model_utils import (
     custom_objects
 )
 
-IMAGE_ROOT = os.path.join(MEDIA_ROOT, "images")
+IMAGE_ROOT = os.path.join(MEDIA_ROOT, "test_images")
 def get_random_images(image_media_root, num_images=1):
     images = []
     for i in range(num_images):
