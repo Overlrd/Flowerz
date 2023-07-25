@@ -13,7 +13,7 @@ media/
 .env
 .dev-env/
 
-# Node.js / NPM
+# Node.js / NPM 
 node_modules/
 
 # Local development settings
