@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static  %}
+
+{% block title %}Predict{% endblock title %}
+
+{% block style %}   
+ <link rel="stylesheet" href="{% static 'search/css/styles.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+<div id="search-m-container">
+    <input type="hidden" id="hidden_extracted_data"  data-extracted_data="{{extracted_data}}" name="extracted_data">
+    <div id="search-l-container">
+        <p>{{ hi }}</p>
+    </div>
+
+    <div id="search-r-container">
+        <div id="search-r-input">
+            <form role="search">
+                <input type="search" placeholder="Search" />
+                <input type="submit" value="Search" />
+              </form>
+        </div>
+
+        <div class="grid">
+        {% for item in extracted_data %}
+        <div class="card flower-card">
+          <input type="hidden" class="flower-id" data-id="{{ item.id }}" name="flower_id">
+            <div class="card-header">
+                {{ item.common_name }} 
+            </div>
+            <div class="card-body">
+                <img class="flower-img" src="{{ item.image_url }}" alt="{{ item.common_name }}" width="100px" height="100px">
+            </div>
+            <div class="card-footer">
+                {{ item.scientific_name }} 
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+
+        <dialog id="search-dialog">
+            <article>
+              <header>
+                <Link to="#" aria-label="Close" class="close" />
+                <p>
+                  <strong>Flower</strong>
+                </p>
+              </header>
+              <main>
+                <div class="default_container" >
+                  <div class="dialog-img-div" style="width: 40%;">
+                    <img style="width: 200px; height: 200px;" src="https://bs.plantnet.org/image/o/8b6968d690889912615941de9dfa56329dbd88fc" alt="" srcset="">
+                  </div>
+                  
+                  <div class="dialog-desc-div default_container" style="width: 60%;">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus ipsa facere praesentium nihil recusandae magni. Fugit facilis perspiciatis animi, labore voluptatum soluta illo blanditiis cumque quo dolorem ut doloremque numquam.</p>
+                  </div>
+                </div>
+
+                <div style="margin-top: 2rem;">
+                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti cumque, eveniet nobis commodi ad quisquam illo quas laudantium provident quam quidem. Possimus recusandae reiciendis consectetur, dignissimos tenetur reprehenderit dolore? Eum.</p>
+                </div>
+              </main>
+            </article>
+        </dialog>
+    </div>
+</div>
+
+{% endblock content%}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'search/js/index.js'%}"></script>
+{% endblock script %}

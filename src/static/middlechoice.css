@@ -1,0 +1,37 @@
+.mc-article{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: max-content;
+    padding: 0!important;
+    margin-top: 1rem;
+} 
+
+.mc-article input {
+    width: auto;
+    min-width: 30%;
+    margin: 0 1rem 0 1rem;
+
+}
+.mc-article button {
+    width: auto;
+    margin: 0 1rem 0 1rem;
+}
+
+
+@media (max-width: 840px ) {
+    .mc-article {
+        display: flex;
+        flex-direction: column;
+    }
+    .mc-article button {
+        margin: 1rem 0 1rem 0;
+    }
+    .mc-article input {
+        margin: 1rem 0 0 0;
+    
+    }
+    
+}

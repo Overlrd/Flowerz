@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static  %}
+
+{% block title %}Predict{% endblock title %}
+
+{% block style %}   
+ <link rel="stylesheet" href="{% static 'predict/css/styles.css' %}">
+{% endblock style %}
+
+{% block content %} 
+
+<div id="main_container">
+        <form id="predict_form" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            {{ form.as_div }}
+            <button type="submit">Upload</button>
+        </form>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script type="text/javascript" src="{% static 'predict/js/index.js'%}"></script>
+{% endblock script %}

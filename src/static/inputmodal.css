@@ -1,0 +1,14 @@
+.im-main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.im-main input:last-child{
+    background: var(--main-assets-color);
+}
+
+dialog header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
