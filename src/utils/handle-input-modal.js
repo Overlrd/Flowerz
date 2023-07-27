@@ -21,7 +21,6 @@ export const handleSubmit = (event, setFlowerData, setInputFormVisible, setModal
       const flowerRequestName = BasicData['first_class_name'].split('-')[1] || BasicData['first_class_name'].split('-')[0];
       fetch_flower_data(flowerRequestName, '*').then(additionalData => {
         // Update the state with the additional data
-        console.log(additionalData)
         setFlowerData(BasicData => ({
           ...BasicData,
             additionalData
