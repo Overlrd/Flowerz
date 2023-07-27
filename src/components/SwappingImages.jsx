@@ -29,14 +29,13 @@ const SwappingImages = () => {
   }, []);
 
   useEffect(() => {
-    console.log(TrefleData);
+    console.log("Treffle Data Updated");
   }, [TrefleData]);
 
     // Function to fetch additional data for a specific item and save it to local storage
     const fetchAndSaveAdditionalData = (slug) => {
       fetch_flower_data(slug, "all")
         .then((data) => {
-          console.log("additional data", data);
           setAdditionalData(data);
           // Save the additional data to local storage for future use
           localStorage.setItem(slug, JSON.stringify(data));
@@ -62,7 +61,6 @@ const SwappingImages = () => {
       <Swiper onSlideChange={(Swiper) => setActiveSlideIndex(Swiper.activeIndex)} navigation={true} modules={[Navigation]} className="mySwiper">
       {TrefleData.map((item, index) => (
         <SwiperSlide key={index}>
-          {console.log(additionalData.data?.page_text ?? "Nothing here !")}
           <FlowerCard
         flower_name={item.common_name + "-" + item.slug}
         image_url={item.image_url}

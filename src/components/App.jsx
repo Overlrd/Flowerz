@@ -17,11 +17,11 @@ const App = () => {
   const [searchResultData, setSearchResultData] = React.useState(null)
 
   React.useEffect(() => {
-    console.log(flowerData);
+    console.log("Flower Data Updated");
   }, [flowerData]);
 
   React.useEffect(() => {
-    console.log(searchResultData)
+    console.log("Search Result Data Updated")
   }, [searchResultData]);
 
   return (

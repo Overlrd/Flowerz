@@ -1,7 +1,6 @@
 import json
 import logging
 from pathlib import Path
-import time 
 
 import numpy as np
 import tensorflow as tf
@@ -15,11 +14,6 @@ from Flowerz.settings import MODEL_LABELS_PATH, MODEL_CONFIG_PATH, MODEL_WEIGHTS
 custom_objects = {'KerasLayer': hub.KerasLayer}
 
 def get_labels(filename):
-    """Loads labels from label_names.json file \n
-    return a dictionary(key = class_id, values= [default_name, better_name])
-    - `default_name` is the default name of the class in the original dataset
-    - `better_name` is the most referred name of the class on wikipedia (often scientific name)
-    """
     assert Path(filename).is_file()
     labels_dict = {}
 
@@ -48,8 +42,6 @@ def process_image(img_paths, img_res=224):
         out_img = np.expand_dims(processed[0], axis=0)
         return out_img
     return tf.stack(processed)
-
-labels = get_labels(MODEL_LABELS_PATH)
 
 def get_model(model_cfg_path, model_weight_path, custom_object):
     """Build a keras model loading json config , weights and custom_objects """
@@ -88,3 +80,5 @@ def custom_predict(model, data, labels_map, top_k=3):
     Return post_process"""
     prediction = model.predict(data)
     return post_process(prediction, labels_map, top_k=top_k)
+
+labels = get_labels(MODEL_LABELS_PATH)

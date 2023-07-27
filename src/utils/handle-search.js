@@ -5,7 +5,7 @@ export function handleSearchSubmit(event, setSearchResultData, setSearchResultsV
     const searchTerm = event.target.querySelector('input[type="search"]').value;
     fetch(`/search/query/${searchTerm}`)
     .then ( response => response.json())
-    .then (data => {console.log(data); setSearchResultData(data);  setSearchResultsVisible(true)})
+    .then (data => {setSearchResultData(data);  setSearchResultsVisible(true)})
     .catch(error => {
         console.error('Error:', error);
     });}
@@ -32,7 +32,6 @@ export function handleSearchSubmit(event, setSearchResultData, setSearchResultsV
           setFlowerData(data);
           setSearchResultsVisible(false);
           setModalFlowerVisible(true);
-          console.log(data);
         });
       }
       

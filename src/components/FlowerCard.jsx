@@ -26,7 +26,11 @@ const FlowerCard = ({
 
   const flowerNameParts = flower_name.split('-');
   const flowerTitle = flowerNameParts[0];
-  const flowerSubtitle = flowerNameParts[1];
+  let flowerSubtitle = flowerNameParts[1];
+
+  if (flowerNameParts.length === 3){
+    flowerSubtitle = flowerNameParts[1] + '-' + flowerNameParts[2];
+  }
 
   return (
     <>

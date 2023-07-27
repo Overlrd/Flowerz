@@ -32,8 +32,6 @@ MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_names.json")
 # Load environment variables
 load_dotenv()
 TREFFLE_API_KEY = os.getenv("TREFFLE_API_KEY")
-WIKIMEDIA_CLIENT_ID = os.getenv("WIKIMEDIA_CLIENT_ID")
-WIKIMEDIA_CLIENT_SECRET = os.getenv("WIKIMEDIA_CLIENT_SECRET")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -138,24 +136,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'predict', 'static', 'predict'))
+    os.path.join(BASE_DIR, 'static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-"""
-# Caching
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": "127.0.0.1:11211",
-    }
-}
- """

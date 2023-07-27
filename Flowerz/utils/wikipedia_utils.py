@@ -1,7 +1,5 @@
 import aiohttp
 from bs4 import BeautifulSoup
-from django.core.cache import cache
-
 
 base_url = 'https://en.wikipedia.org/wiki/{}'
 api_url = 'https://en.wikipedia.org/w/api.php'
@@ -28,7 +26,6 @@ class WikiInfoExtractor:
     async def extract_infobox(page_title):
         print("extracting infobox")
         url = base_url.format(page_title)
-        print(url, " url ")
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
                 html = await response.text()
