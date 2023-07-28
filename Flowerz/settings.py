@@ -31,7 +31,7 @@ MODEL_LABELS_PATH = os.path.join(MODEL_ASSETS_ROOT, "label_names.json")
 
 # Load environment variables
 load_dotenv()
-TREFFLE_API_KEY = os.getenv("TREFFLE_API_KEY")
+TREFLE_API_KEY = os.getenv("TREFLE_API_KEY")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

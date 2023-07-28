@@ -1,15 +1,14 @@
 import json
 import time
-import asyncio
 from .models import SearchLog
 from django.shortcuts import render
 from django.http import HttpResponse
 from trefleapi import Client
-from Flowerz.settings import TREFFLE_API_KEY
+from Flowerz.settings import TREFLE_API_KEY
 from Flowerz.utils.wikipedia_utils import WikiInfoExtractor
 
 Extractor = WikiInfoExtractor()
-Tclient = Client(TREFFLE_API_KEY)
+Tclient = Client(TREFLE_API_KEY)
 
 def index(request):
     if request.method == "GET":
