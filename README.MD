@@ -116,7 +116,7 @@ the predict package contains:
 - ```views.py``` : contains the views , to upload, process and predit images with the model and gather informations about the predicted image. 
 
 ### Search
-The search app provides a search functionnality to the users using the [trefle-api](###trefle-api) package.
+The search app provides a search functionnality to the users using the [trefle-api](#trefle-api) package.
 ```
 ├── admin.py
 ├── apps.py
